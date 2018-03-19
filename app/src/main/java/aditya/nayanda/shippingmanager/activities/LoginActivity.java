@@ -1,6 +1,7 @@
 package aditya.nayanda.shippingmanager.activities;
 
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -30,8 +31,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void FakeLogin() {
-//        Intent IntentHome = new Intent(this, HomeActivity.class)
-//        startActivity(IntentHome);
+        Intent IntentHome = new Intent(this, this.getClass());
+        startActivity(IntentHome);
     }
 
     @Override
