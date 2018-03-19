@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.fragments;
+package aditya.nayanda.shippingmanager.fragments.main;
 
 import android.support.v4.app.Fragment;
 
@@ -7,4 +7,5 @@ import android.support.v4.app.Fragment;
  */
 
 public class ActiveJobsFragment extends Fragment {
+
 }

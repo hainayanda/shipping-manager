@@ -18,4 +18,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- String related to main -->
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_active_jobs">Active</string>
+    <string name="title_pending">Pending</string>
+    <string name="title_history">History</string>
+    <string name="title_user_menu">User</string>
 </resources>
