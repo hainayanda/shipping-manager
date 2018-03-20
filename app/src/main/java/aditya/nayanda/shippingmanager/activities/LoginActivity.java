@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void FakeLogin() {
-        Intent IntentHome = new Intent(this, this.getClass());
+        Intent IntentHome = new Intent(this, MainActivity.class);
         startActivity(IntentHome);
     }
 
