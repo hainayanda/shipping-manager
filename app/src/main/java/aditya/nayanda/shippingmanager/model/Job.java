@@ -25,31 +25,31 @@ public class Job {
         this.type = type;
     }
 
-    public static Job newDummyInstance() {
+    public static Job newDummyInstance(int i) {
         int type = new Random().nextInt(4);
         switch (type) {
             case 0:
-                return new Job("OIL NAME",
+                return new Job("OIL " + i,
                         "Lorem ipsum dolor sit amet",
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
                         null, ItemType.OIL);
             case 1:
-                return new Job("GAS NAME",
+                return new Job("GAS " + i,
                         "Lorem ipsum dolor sit amet",
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
                         null, ItemType.GAS);
             case 2:
-                return new Job("LUBE NAME",
+                return new Job("LUBE " + i,
                         "Lorem ipsum dolor sit amet",
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
                         null, ItemType.LUBE);
             case 3:
-                return new Job("PETROCHEMICAL NAME",
+                return new Job("PETROCHEMICAL " + i,
                         "Lorem ipsum dolor sit amet",
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
                         null, ItemType.PETROCHEMICAL);
             default:
-                return new Job("OTHER NAME",
+                return new Job("OTHER " + i,
                         "Lorem ipsum dolor sit amet",
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
                         null, ItemType.OTHER);
