@@ -28,9 +28,8 @@
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme" />
-        <activity
-            android:name=".activities.MainActivity"
-            android:label="@string/title_activity_main"></activity>
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.ConfirmationActivity"></activity>
     </application>
 
 </manifest>

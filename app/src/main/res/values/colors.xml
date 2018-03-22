@@ -11,4 +11,5 @@
     <color name="grey">#888888</color>
     <color name="brokenGrey">#AFAFAF</color>
     <color name="brokenWhite">#EFEFEF</color>
+    <color name="white">#ffffff</color>
 </resources>

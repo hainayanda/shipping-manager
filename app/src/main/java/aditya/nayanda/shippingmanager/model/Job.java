@@ -1,6 +1,8 @@
 package aditya.nayanda.shippingmanager.model;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.Random;
 
@@ -9,8 +11,19 @@ import java.util.Random;
  * Created by nayanda on 22/03/18.
  */
 
-public class Job {
+public class Job implements Parcelable {
 
+    public static final Creator<Job> CREATOR = new Creator<Job>() {
+        @Override
+        public Job createFromParcel(Parcel in) {
+            return new Job(in);
+        }
+
+        @Override
+        public Job[] newArray(int size) {
+            return new Job[size];
+        }
+    };
     private String itemName;
     private String itemDetail;
     private String Address;
@@ -23,6 +36,30 @@ public class Job {
         Address = address;
         this.location = location;
         this.type = type;
+    }
+
+    public Job(Parcel in) {
+        itemName = in.readString();
+        itemDetail = in.readString();
+        Address = in.readString();
+        location = in.readParcelable(Location.class.getClassLoader());
+        int rawType = in.readInt();
+        switch (rawType) {
+            case 0:
+                type = ItemType.OIL;
+                break;
+            case 1:
+                type = ItemType.GAS;
+                break;
+            case 2:
+                type = ItemType.LUBE;
+                break;
+            case 3:
+                type = ItemType.PETROCHEMICAL;
+                break;
+            default:
+                type = ItemType.OTHER;
+        }
     }
 
     public static Job newDummyInstance(int i) {
@@ -56,6 +93,20 @@ public class Job {
         }
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(itemName);
+        dest.writeString(itemDetail);
+        dest.writeString(Address);
+        dest.writeParcelable(location, flags);
+        dest.writeInt(type.raw);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     public String getItemName() {
         return itemName;
     }
@@ -77,6 +128,12 @@ public class Job {
     }
 
     public enum ItemType {
-        OIL, GAS, LUBE, PETROCHEMICAL, OTHER
+        OIL(0), GAS(1), LUBE(2), PETROCHEMICAL(3), OTHER(4);
+
+        int raw;
+
+        ItemType(int raw) {
+            this.raw = raw;
+        }
     }
 }

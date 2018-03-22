@@ -9,7 +9,7 @@ import aditya.nayanda.shippingmanager.R;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * status bar and navigation_bottom/system bar) with user interaction.
  */
 public class SplashScreenActivity extends Activity {
 

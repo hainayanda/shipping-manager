@@ -4,16 +4,20 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import aditya.nayanda.shippingmanager.R;
+import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
 import aditya.nayanda.shippingmanager.adapter.MainPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationViewEx navigation = null;
-    private ViewPager fragmentContainer = null;
+    private BottomNavigationViewEx navigation;
+    private ViewPager fragmentContainer;
+    private TextView actionBarTitle;
+
     private BottomNavigationView.OnNavigationItemSelectedListener itemSelectedListener
             = item -> {
         int index = -1;
@@ -53,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        actionBarTitle = ActivityHelper.setToCustomActionBar(this);
         setContentView(R.layout.activity_main);
-
         fragmentContainer = findViewById(R.id.main_frame);
         fragmentContainer.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
         fragmentContainer.addOnPageChangeListener(pageChangeListener);
 
-        navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation_bottom);
         navigation.enableShiftingMode(false);
         navigation.setOnNavigationItemSelectedListener(itemSelectedListener);
 
@@ -87,16 +91,16 @@ public class MainActivity extends AppCompatActivity {
     boolean setTitleByIndex(int index) {
         switch (index) {
             case 0:
-                setTitle(R.string.title_active_jobs);
+                actionBarTitle.setText(R.string.title_active_jobs);
                 return true;
             case 1:
-                setTitle(R.string.title_pending);
+                actionBarTitle.setText(R.string.title_pending);
                 return true;
             case 2:
-                setTitle(R.string.title_history);
+                actionBarTitle.setText(R.string.title_history);
                 return true;
             case 3:
-                setTitle(R.string.title_user_menu);
+                actionBarTitle.setText(R.string.title_user_menu);
                 return true;
             default:
                 return false;
