@@ -2,29 +2,52 @@ package aditya.nayanda.shippingmanager.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import aditya.nayanda.shippingmanager.R;
+import aditya.nayanda.shippingmanager.adapter.MainPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int navigationIndex = 0;
-
+    private BottomNavigationViewEx navigation = null;
+    private ViewPager fragmentContainer = null;
     private BottomNavigationView.OnNavigationItemSelectedListener itemSelectedListener
             = item -> {
+        int index = -1;
         switch (item.getItemId()) {
             case R.id.navigation_active_jobs:
-                return selectBottomNavigationBy(0);
+                index = 0;
+                break;
             case R.id.navigation_pending:
-                return selectBottomNavigationBy(1);
+                index = 1;
+                break;
             case R.id.navigation_history:
-                return selectBottomNavigationBy(2);
+                index = 2;
+                break;
             case R.id.navigation_user_menu:
-                return selectBottomNavigationBy(3);
+                index = 3;
+                break;
+            default:
+                break;
         }
-        return false;
+        return selectBottomNavigationBy(index);
+    };
+    private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            if (setTitleByIndex(position)) navigation.getMenu().getItem(position).setChecked(true);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
     };
 
     @Override
@@ -32,19 +55,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navigationIndex = getIntentIndex();
-        selectBottomNavigationBy(navigationIndex);
+        fragmentContainer = findViewById(R.id.main_frame);
+        fragmentContainer.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
+        fragmentContainer.addOnPageChangeListener(pageChangeListener);
 
-        BottomNavigationViewEx navigation = findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.enableShiftingMode(false);
-        navigation.enableItemShiftingMode(false);
         navigation.setOnNavigationItemSelectedListener(itemSelectedListener);
+
+        int navigationIndex = getIntentIndex();
+        navigation.getMenu().getItem(navigationIndex).setChecked(true);
+        selectBottomNavigationBy(navigationIndex);
     }
 
     private int getIntentIndex() {
         try {
             Integer index = getIntent().getExtras().getInt("INDEX");
-            if (index < 4 && index > 0) return index;
+            if (index < 4 && index >= 0) return index;
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -52,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean selectBottomNavigationBy(int index) {
+        boolean isSuccess = setTitleByIndex(index);
+        if (isSuccess) fragmentContainer.setCurrentItem(index, true);
+        return isSuccess;
+    }
+
+    boolean setTitleByIndex(int index) {
         switch (index) {
             case 0:
                 setTitle(R.string.title_active_jobs);
@@ -60,10 +93,10 @@ public class MainActivity extends AppCompatActivity {
                 setTitle(R.string.title_pending);
                 return true;
             case 2:
-                setTitle(R.string.title_user_menu);
+                setTitle(R.string.title_history);
                 return true;
             case 3:
-                setTitle(R.string.title_history);
+                setTitle(R.string.title_user_menu);
                 return true;
             default:
                 return false;

@@ -25,4 +25,7 @@
     <string name="title_pending">Pending</string>
     <string name="title_history">History</string>
     <string name="title_user_menu">User</string>
+    <string name="item_name_holder">ITEM NAME</string>
+    <string name="dummy_sentence">Lorem ipsum dolor sit amet</string>
+    <string name="dummy_sentences">Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et</string>
 </resources>
