@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationViewEx navigation;
     private ViewPager fragmentContainer;
     private TextView actionBarTitle;
-
     private BottomNavigationView.OnNavigationItemSelectedListener itemSelectedListener
             = item -> {
         int index = -1;
@@ -53,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         public void onPageScrollStateChanged(int state) {
         }
     };
+
+    //BELOW IS CODE RELATED TO BOTTOM NAVIGATION
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

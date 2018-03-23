@@ -24,6 +24,7 @@ public class Job implements Parcelable {
             return new Job[size];
         }
     };
+
     private String itemName;
     private String itemDetail;
     private String Address;

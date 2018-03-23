@@ -42,12 +42,6 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
         return fragment;
     }
 
-    private static boolean isRunning(AsyncTask task) {
-        if (task == null) return false;
-        AsyncTask.Status status = task.getStatus();
-        return status == AsyncTask.Status.RUNNING;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +60,8 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
         setListListener(jobListView);
         return view;
     }
+
+    //BELOW IS CODE RELATED TO LIST ADAPTER
 
     @Override
     public boolean areAllItemsEnabled() {
@@ -155,6 +151,12 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
             @Override
             public void onScroll(AbsListView view, int firsVisibleIndex, int visibleCount, int totalItem) {
             }
+
+            private boolean isRunning(AsyncTask task) {
+                if (task == null) return false;
+                AsyncTask.Status status = task.getStatus();
+                return status == AsyncTask.Status.RUNNING;
+            }
         });
         jobListView.setOnItemClickListener((adapterView, view, position, id) -> {
             Job job = (Job) adapterView.getAdapter().getItem(position);
@@ -165,6 +167,20 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
     }
 
     private static class ItemLoader extends AsyncTask<Object, Void, Object[]> {
+
+        private static FrameLayout setProgressBar(Activity activity, final ListView listView) {
+            ProgressBar progressBar = new ProgressBar(activity, null, android.R.attr.progressBarStyleLarge);
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(150, 150);
+            layoutParams.gravity = Gravity.CENTER;
+            progressBar.setLayoutParams(layoutParams);
+            FrameLayout layout = new FrameLayout(activity);
+            layout.addView(progressBar);
+            activity.runOnUiThread(() -> {
+                listView.addFooterView(layout);
+                listView.setSelection(listView.getCount());
+            });
+            return layout;
+        }
 
         @Override
         protected Object[] doInBackground(Object[] params) {
@@ -198,20 +214,6 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
             FrameLayout progressBar = (FrameLayout) results[2];
             listView.removeFooterView(progressBar);
             listView.invalidateViews();
-        }
-
-        private FrameLayout setProgressBar(Activity activity, final ListView listView) {
-            ProgressBar progressBar = new ProgressBar(activity, null, android.R.attr.progressBarStyleLarge);
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(150, 150);
-            layoutParams.gravity = Gravity.CENTER;
-            progressBar.setLayoutParams(layoutParams);
-            FrameLayout layout = new FrameLayout(activity);
-            layout.addView(progressBar);
-            activity.runOnUiThread(() -> {
-                listView.addFooterView(layout);
-                listView.setSelection(listView.getCount());
-            });
-            return layout;
         }
     }
 }

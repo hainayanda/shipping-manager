@@ -19,6 +19,8 @@ public class ActivityHelper {
     }
 
     public static TextView setToCustomActionBar(Activity activity) {
+        if (activity instanceof AppCompatActivity)
+            return setToCustomActionBar((AppCompatActivity) activity);
         try {
             ActionBar actionBar = activity.getActionBar();
             actionBar.setCustomView(R.layout.bar_custom_action_bar);
