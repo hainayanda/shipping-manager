@@ -26,7 +26,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return PendingJobsFragment.newInstance(new Bundle());
             case 2:
-                return ActiveJobsFragment.newInstance(new Bundle());
+                return PendingJobsFragment.newInstance(new Bundle());
             case 3:
                 return ActiveJobsFragment.newInstance(new Bundle());
             default:

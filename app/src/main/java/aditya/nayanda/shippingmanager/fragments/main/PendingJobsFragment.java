@@ -42,7 +42,6 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         View view = inflater.inflate(R.layout.fragment_pending_jobs, container, false);
         ExpandableListView pendingJobListView = view.findViewById(R.id.list_pending_jobs);
         pendingJobListView.setAdapter(this);
-
 //        setListListener(pendingJobListView);
         return view;
     }
