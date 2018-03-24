@@ -30,6 +30,7 @@
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.ConfirmationActivity"></activity>
+        <activity android:name=".activities.DeliveryStartActivity" />
     </application>
 
 </manifest>

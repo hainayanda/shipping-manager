@@ -35,4 +35,6 @@
     <string name="button_confirm">CONFIRM</string>
     <string name="button_reject">REJECT</string>
     <string name="holder_item_name">ITEM NAME</string>
+    <string name="button_start">START DELIVERY</string>
+    <string name="shipment_remarks">Total Stop : {totalJobs}</string>
 </resources>

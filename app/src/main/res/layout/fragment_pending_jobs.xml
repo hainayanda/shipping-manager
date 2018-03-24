@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/fragment_pending_jobs"
+    <ExpandableListView
+        android:id="@+id/list_pending_jobs"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
