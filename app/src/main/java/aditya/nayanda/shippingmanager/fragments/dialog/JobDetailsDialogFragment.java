@@ -1,56 +1,65 @@
-package aditya.nayanda.shippingmanager.activities;
+package aditya.nayanda.shippingmanager.fragments.dialog;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.InputStream;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
-import aditya.nayanda.shippingmanager.fragments.dialog.ConfirmDialogFragment;
-import aditya.nayanda.shippingmanager.fragments.dialog.RejectDialogFragment;
+import aditya.nayanda.shippingmanager.fragments.dialog.helper.DialogHelper;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.Receiver;
 
-public class ConfirmationActivity extends AppCompatActivity {
+public class JobDetailsDialogFragment extends DialogFragment {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_confirmation);
-        String title = getSupportActionBar().getTitle().toString();
-        ActivityHelper.setCustomActionBarWith(title, this);
-
-        final Job job = getJobExtras();
-        applyView(job);
-
-        findViewById(R.id.button_reject).setOnClickListener(view -> {
-            Job[] jobs = getJobsExtras();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            RejectDialogFragment dialogFragment = RejectDialogFragment.newInstance(0.9f, job, jobs);
-            dialogFragment.show(fragmentManager, "reject_dialog");
-        });
-        findViewById(R.id.button_confirm).setOnClickListener(view -> {
-            Job[] jobs = getJobsExtras();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            ConfirmDialogFragment dialogFragment = ConfirmDialogFragment.newInstance(0.9f, job, jobs);
-            dialogFragment.show(fragmentManager, "confirm_dialog");
-        });
+    public static JobDetailsDialogFragment newInstance(float width, Job job) {
+        Bundle args = new Bundle();
+        args.putParcelable("JOB", job);
+        args.putFloat("width", width);
+        JobDetailsDialogFragment fragment = new JobDetailsDialogFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
-    private void applyView(Job job) {
-        ImageView photo = findViewById(R.id.receiver_photo);
-        TextView name = findViewById(R.id.receiver_name);
-        TextView fullName = findViewById(R.id.receiver_detail);
-        ImageView icon = findViewById(R.id.item_details_icon);
-        TextView itemName = findViewById(R.id.item_name_details);
-        TextView itemDetails = findViewById(R.id.item_detail_details);
-        TextView itemAddress = findViewById(R.id.item_address_details);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.dialog_job_details, container, false);
+        final Job job = getJobExtras();
+        applyView(view, job);
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+            float width = getArguments().getFloat("width");
+            DialogHelper.setDialogWidthPercentage(width, getDialog(), getActivity());
+        } catch (NullPointerException | IllegalArgumentException e) {
+            Log.e("ERROR", e.toString());
+        }
+    }
+
+    private void applyView(View view, Job job) {
+        ImageView photo = view.findViewById(R.id.receiver_photo);
+        TextView name = view.findViewById(R.id.receiver_name);
+        TextView fullName = view.findViewById(R.id.receiver_detail);
+        ImageView icon = view.findViewById(R.id.item_details_icon);
+        TextView itemName = view.findViewById(R.id.item_name_details);
+        TextView itemDetails = view.findViewById(R.id.item_detail_details);
+        TextView itemAddress = view.findViewById(R.id.item_address_details);
+        ImageButton closedButton = view.findViewById(R.id.closed_button);
 
         applyItemIcon(job, icon);
 
@@ -61,6 +70,7 @@ public class ConfirmationActivity extends AppCompatActivity {
         itemName.setText(job.getItemName());
         itemDetails.setText(job.getItemDetail());
         itemAddress.setText(job.getAddress());
+        closedButton.setOnClickListener(view1 -> JobDetailsDialogFragment.this.dismiss());
 
     }
 
@@ -76,7 +86,7 @@ public class ConfirmationActivity extends AppCompatActivity {
         }
         try {
             int id = this.getResources().getIdentifier(iconName,
-                    "raw", this.getPackageName());
+                    "raw", this.getContext().getPackageName());
             InputStream in = this.getResources().openRawResource(id);
             Drawable drawable = Drawable.createFromStream(in, iconName);
             photo.setImageDrawable(drawable);
@@ -106,7 +116,7 @@ public class ConfirmationActivity extends AppCompatActivity {
         }
         try {
             int id = this.getResources().getIdentifier(iconName,
-                    "raw", this.getPackageName());
+                    "raw", this.getContext().getPackageName());
             InputStream in = this.getResources().openRawResource(id);
             Drawable drawable = Drawable.createFromStream(in, iconName);
             icon.setImageDrawable(drawable);
@@ -117,19 +127,10 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     private Job getJobExtras() {
         try {
-            return (Job) getIntent().getExtras().getParcelable("JOB");
+            return (Job) getArguments().getParcelable("JOB");
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
         }
         return null;
-    }
-
-    private Job[] getJobsExtras() {
-        try {
-            return (Job[]) getIntent().getExtras().getParcelableArray("JOBS");
-        } catch (NullPointerException e) {
-            Log.e("ERROR", e.toString());
-        }
-        return new Job[0];
     }
 }

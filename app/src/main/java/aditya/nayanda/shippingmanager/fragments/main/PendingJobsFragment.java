@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aditya.nayanda.shippingmanager.R;
+import aditya.nayanda.shippingmanager.fragments.dialog.JobDetailsDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
 import aditya.nayanda.shippingmanager.view.holder.ChildJobViewHolder;
@@ -42,7 +44,7 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         View view = inflater.inflate(R.layout.fragment_pending_jobs, container, false);
         ExpandableListView pendingJobListView = view.findViewById(R.id.list_pending_jobs);
         pendingJobListView.setAdapter(this);
-//        setListListener(pendingJobListView);
+        setListListener(pendingJobListView);
         return view;
     }
 
@@ -138,7 +140,7 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
     @Override
@@ -166,6 +168,14 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         return getGroupId((int) groupId);
     }
 
-//    private void setListListener(ListView pendingJobsListView) {
-//    }
+    private void setListListener(ExpandableListView expandableList) {
+        expandableList.setOnChildClickListener((expandableListView, view, groupPosition, childPosition, id) -> {
+            PendingJobsFragment adapter = (PendingJobsFragment) expandableList.getExpandableListAdapter();
+            Job job = (Job) adapter.getChild(groupPosition, childPosition);
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            JobDetailsDialogFragment dialogFragment = JobDetailsDialogFragment.newInstance(0.9f, job);
+            dialogFragment.show(fragmentManager, "reject_dialog");
+            return true;
+        });
+    }
 }

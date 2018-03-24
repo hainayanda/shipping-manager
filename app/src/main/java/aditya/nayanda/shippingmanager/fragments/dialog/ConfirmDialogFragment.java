@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import aditya.nayanda.shippingmanager.R;
 import aditya.nayanda.shippingmanager.fragments.dialog.helper.DialogHelper;
 import aditya.nayanda.shippingmanager.model.Job;
+import aditya.nayanda.shippingmanager.util.Utilities;
 
 /**
  * Created by nayanda on 24/03/18.
@@ -20,10 +21,11 @@ import aditya.nayanda.shippingmanager.model.Job;
 
 public class ConfirmDialogFragment extends DialogFragment {
 
-    public static ConfirmDialogFragment newInstance(float widthPercent, Job[] jobs) {
+    public static ConfirmDialogFragment newInstance(float widthPercent, Job job, Job[] jobs) {
         Bundle args = new Bundle();
         args.putFloat("width", widthPercent);
         args.putParcelableArray("JOBS", jobs);
+        args.putParcelable("JOB", job);
         ConfirmDialogFragment fragment = new ConfirmDialogFragment();
         fragment.setArguments(args);
         return fragment;
@@ -35,6 +37,8 @@ public class ConfirmDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_confirm, container);
         view.findViewById(R.id.button_submit_confirm).setOnClickListener(button -> {
             Job[] jobs = getJobsArguments();
+            Job job = getJobArguments();
+            jobs = Utilities.createArrayWithout(job, jobs);
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             ContinueDialogFragment dialogFragment = ContinueDialogFragment.newInstance(0.9f, jobs);
             dialogFragment.show(fragmentManager, "continue_dialog");
@@ -64,5 +68,13 @@ public class ConfirmDialogFragment extends DialogFragment {
         return new Job[0];
     }
 
+    private Job getJobArguments() {
+        try {
+            return (Job) getArguments().getParcelable("JOB");
+        } catch (NullPointerException e) {
+            Log.e("ERROR", e.toString());
+        }
+        return null;
+    }
 
 }
