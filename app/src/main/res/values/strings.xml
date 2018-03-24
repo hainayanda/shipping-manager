@@ -43,4 +43,7 @@
     <string name="button_submit">SUBMIT</string>
     <string name="button_cancel">CANCEL</string>
     <string name="title_activity_confirmation">CONFIRMATION</string>
+    <string name="title_confirmation_details">Confirmation Details</string>
+    <string name="radio_hint_registered">Received by registered recipient</string>
+    <string name="radio_hint_delegation">Received by delegation</string>
 </resources>

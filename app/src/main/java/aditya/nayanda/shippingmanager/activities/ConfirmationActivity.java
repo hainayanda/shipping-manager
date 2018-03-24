@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import aditya.nayanda.shippingmanager.R;
 import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
+import aditya.nayanda.shippingmanager.fragments.dialog.ConfirmDialogFragment;
 import aditya.nayanda.shippingmanager.fragments.dialog.RejectDialogFragment;
 
 public class ConfirmationActivity extends AppCompatActivity {
@@ -20,6 +21,11 @@ public class ConfirmationActivity extends AppCompatActivity {
             FragmentManager fragmentManager = getSupportFragmentManager();
             RejectDialogFragment dialogFragment = RejectDialogFragment.newInstance(0.9f);
             dialogFragment.show(fragmentManager, "reject_dialog");
+        });
+        findViewById(R.id.button_confirm).setOnClickListener(view -> {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            ConfirmDialogFragment dialogFragment = ConfirmDialogFragment.newInstance(0.9f);
+            dialogFragment.show(fragmentManager, "confirm_dialog");
         });
     }
 }
