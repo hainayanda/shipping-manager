@@ -10,6 +10,8 @@
     <color name="black_overlay">#66000000</color>
     <color name="grey">#888888</color>
     <color name="brokenGrey">#AFAFAF</color>
-    <color name="brokenWhite">#EFEFEF</color>
+    <color name="darkerWhite">#D0D0D0</color>
+    <color name="brokenWhite">#E0E0E0</color>
+    <color name="almostWhite">#F0F0F0</color>
     <color name="white">#ffffff</color>
 </resources>
