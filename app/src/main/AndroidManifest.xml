@@ -36,6 +36,7 @@
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".activities.MainActivity" />
+<<<<<<< .merge_file_7OQUpU
         <activity
             android:name=".activities.ConfirmationActivity"
             android:label="@string/title_activity_confirmation" />
@@ -55,6 +56,10 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+=======
+        <activity android:name=".activities.ConfirmationActivity"></activity>
+        <activity android:name=".activities.DeliveryStartActivity" />
+>>>>>>> .merge_file_zx7w9p
     </application>
 
 </manifest>
