@@ -126,7 +126,9 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     private Job[] getJobsExtras() {
         try {
-            return (Job[]) getIntent().getExtras().getParcelableArray("JOBS");
+            Job[] jobs = (Job[]) getIntent().getExtras().getParcelableArray("JOBS");
+            if (jobs == null) jobs = new Job[0];
+            return jobs;
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
         }

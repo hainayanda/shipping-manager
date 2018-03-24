@@ -18,7 +18,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="27dp"
+        android:layout_margin="45dp"
         android:background="@drawable/bg_primary"
         android:fontFamily="sans-serif"
         android:text="@string/button_start_navigation"
