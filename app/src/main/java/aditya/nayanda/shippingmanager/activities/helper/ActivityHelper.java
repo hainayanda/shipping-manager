@@ -18,6 +18,10 @@ public class ActivityHelper {
     private ActivityHelper() {
     }
 
+    public static void setCustomActionBarWith(String text, Activity activity) throws NullPointerException {
+        setToCustomActionBar(activity).setText(text);
+    }
+
     public static TextView setToCustomActionBar(Activity activity) {
         if (activity instanceof AppCompatActivity)
             return setToCustomActionBar((AppCompatActivity) activity);

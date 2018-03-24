@@ -183,6 +183,11 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
         protected Object[] doInBackground(Object[] params) {
             ListView listView = (ListView) params[3];
             ActiveJobsFragment fragment = (ActiveJobsFragment) params[0];

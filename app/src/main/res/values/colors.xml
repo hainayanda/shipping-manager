@@ -2,10 +2,10 @@
 <resources>
     <color name="colorPrimary">#507ac2</color>
     <color name="colorPrimaryDark">#32599c</color>
-    <color name="colorAccent">#da251c</color>
-    <color name="colorAccentPastel">#ed524a</color>
-    <color name="colorSecondary">#85c226</color>
-    <color name="colorSecondaryPastel">#a9de56</color>
+    <color name="colorAccentDark">#da251c</color>
+    <color name="colorAccent">#ed524a</color>
+    <color name="colorSecondaryDark">#85c226</color>
+    <color name="colorSecondary">#a9de56</color>
     <color name="background">#FFFFFF</color>
     <color name="black_overlay">#66000000</color>
     <color name="grey">#888888</color>

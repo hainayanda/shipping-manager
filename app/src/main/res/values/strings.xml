@@ -35,4 +35,12 @@
     <string name="button_confirm">CONFIRM</string>
     <string name="button_reject">REJECT</string>
     <string name="holder_item_name">ITEM NAME</string>
+
+    <!-- String related to confirmation -->
+    <string name="title_rejection_details">Rejection details</string>
+    <string name="hint_details">Details</string>
+    <string name="title_secondary_details">OPTIONAL DETAILS</string>
+    <string name="button_submit">SUBMIT</string>
+    <string name="button_cancel">CANCEL</string>
+    <string name="title_activity_confirmation">CONFIRMATION</string>
 </resources>

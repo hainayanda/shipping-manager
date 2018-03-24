@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             Integer index = getIntent().getExtras().getInt("INDEX");
             if (index < 4 && index >= 0) return index;
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e("ERROR", e.toString());
         }
         return 0;
     }
