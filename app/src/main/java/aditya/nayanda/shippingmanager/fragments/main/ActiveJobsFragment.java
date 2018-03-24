@@ -1,23 +1,16 @@
 package aditya.nayanda.shippingmanager.fragments.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,93 +125,93 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
     }
 
     private void setListListener(ListView jobListView) {
-        jobListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        /**
+         jobListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
-            AsyncTask<Object, Void, Object[]> task;
+         AsyncTask<Object, Void, Object[]> task;
 
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
-                ListView listView = (ListView) absListView;
-                int totalItem = listView.getCount();
-                if (scrollState == SCROLL_STATE_IDLE && listView.getLastVisiblePosition() == totalItem - 1) {
-                    if (!isRunning(task)) {
-                        task = new ItemLoader();
-                        task.execute(ActiveJobsFragment.this, totalItem, jobs, listView);
-                    }
-                }
-            }
+         @Override public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+         ListView listView = (ListView) absListView;
+         int totalItem = listView.getCount();
+         if (scrollState == SCROLL_STATE_IDLE && listView.getLastVisiblePosition() == totalItem - 1) {
+         if (!isRunning(task)) {
+         task = new ItemLoader();
+         task.execute(ActiveJobsFragment.this, totalItem, jobs, listView);
+         }
+         }
+         }
 
-            @Override
-            public void onScroll(AbsListView view, int firsVisibleIndex, int visibleCount, int totalItem) {
-            }
+         @Override public void onScroll(AbsListView view, int firsVisibleIndex, int visibleCount, int totalItem) {
+         }
 
-            private boolean isRunning(AsyncTask task) {
-                if (task == null) return false;
-                AsyncTask.Status status = task.getStatus();
-                return status == AsyncTask.Status.RUNNING;
-            }
-        });
+         private boolean isRunning(AsyncTask task) {
+         if (task == null) return false;
+         AsyncTask.Status status = task.getStatus();
+         return status == AsyncTask.Status.RUNNING;
+         }
+         });
+         **/
         jobListView.setOnItemClickListener((adapterView, view, position, id) -> {
             Job job = (Job) adapterView.getAdapter().getItem(position);
             Intent jobDetailsIntent = new Intent(ActiveJobsFragment.this.getContext(), ConfirmationActivity.class);
             jobDetailsIntent.putExtra("JOB", job);
+            jobDetailsIntent.putExtra("JOBS", jobs.toArray());
             startActivity(jobDetailsIntent);
         });
     }
 
-    private static class ItemLoader extends AsyncTask<Object, Void, Object[]> {
+    /**
+     private static class ItemLoader extends AsyncTask<Object, Void, Object[]> {
 
-        private static FrameLayout setProgressBar(Activity activity, final ListView listView) {
-            ProgressBar progressBar = new ProgressBar(activity, null, android.R.attr.progressBarStyleLarge);
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(150, 150);
-            layoutParams.gravity = Gravity.CENTER;
-            progressBar.setLayoutParams(layoutParams);
-            FrameLayout layout = new FrameLayout(activity);
-            layout.addView(progressBar);
-            activity.runOnUiThread(() -> {
-                listView.addFooterView(layout);
-                listView.setSelection(listView.getCount());
-            });
-            return layout;
-        }
+     private static FrameLayout setProgressBar(Activity activity, final ListView listView) {
+     ProgressBar progressBar = new ProgressBar(activity, null, android.R.attr.progressBarStyleLarge);
+     FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(150, 150);
+     layoutParams.gravity = Gravity.CENTER;
+     progressBar.setLayoutParams(layoutParams);
+     FrameLayout layout = new FrameLayout(activity);
+     layout.addView(progressBar);
+     activity.runOnUiThread(() -> {
+     listView.addFooterView(layout);
+     listView.setSelection(listView.getCount());
+     });
+     return layout;
+     }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+     @Override protected void onPreExecute() {
+     super.onPreExecute();
+     }
 
-        @Override
-        protected Object[] doInBackground(Object[] params) {
-            ListView listView = (ListView) params[3];
-            ActiveJobsFragment fragment = (ActiveJobsFragment) params[0];
-            Activity activity = fragment.getActivity();
-            FrameLayout layout = setProgressBar(activity, listView);
+     @Override protected Object[] doInBackground(Object[] params) {
+     ListView listView = (ListView) params[3];
+     ActiveJobsFragment fragment = (ActiveJobsFragment) params[0];
+     Activity activity = fragment.getActivity();
+     FrameLayout layout = setProgressBar(activity, listView);
 
-            List<Job> list = new ArrayList<>();
-            list.addAll((List<Job>) params[2]);
+     List<Job> list = new ArrayList<>();
+     list.addAll((List<Job>) params[2]);
 
-            int start = (Integer) params[1];
-            int end = start + 9;
-            for (int i = start; i < end; i++) {
-                list.add(Job.newDummyInstance(i));
-            }
-            try {
-                Thread.sleep(1800);
-            } catch (InterruptedException e) {
-                Log.e("ERROR", e.toString());
-            }
-            return new Object[]{list, listView, layout, fragment};
-        }
+     int start = (Integer) params[1];
+     int end = start + 9;
+     for (int i = start; i < end; i++) {
+     list.add(Job.newDummyInstance(i));
+     }
+     try {
+     Thread.sleep(1800);
+     } catch (InterruptedException e) {
+     Log.e("ERROR", e.toString());
+     }
+     return new Object[]{list, listView, layout, fragment};
+     }
 
-        @Override
-        protected void onPostExecute(Object[] results) {
-            List<Job> newList = (List<Job>) results[0];
-            ListView listView = (ListView) results[1];
-            ActiveJobsFragment fragment = (ActiveJobsFragment) results[3];
-            fragment.jobs = newList;
-            FrameLayout progressBar = (FrameLayout) results[2];
-            listView.removeFooterView(progressBar);
-            listView.invalidateViews();
-        }
-    }
+     @Override protected void onPostExecute(Object[] results) {
+     List<Job> newList = (List<Job>) results[0];
+     ListView listView = (ListView) results[1];
+     ActiveJobsFragment fragment = (ActiveJobsFragment) results[3];
+     fragment.jobs = newList;
+     FrameLayout progressBar = (FrameLayout) results[2];
+     listView.removeFooterView(progressBar);
+     listView.invalidateViews();
+     }
+     }
+     **/
 }

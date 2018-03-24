@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //BELOW IS CODE RELATED TO BOTTOM NAVIGATION
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

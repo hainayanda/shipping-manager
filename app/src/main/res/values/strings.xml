@@ -46,4 +46,9 @@
     <string name="title_confirmation_details">Confirmation Details</string>
     <string name="radio_hint_registered">Received by registered recipient</string>
     <string name="radio_hint_delegation">Received by delegation</string>
+    <string name="title_hint_dialog_continue">CONTINUE TO MAP</string>
+    <string name="title_dialog_continue">Continue Delivery?</string>
+    <string name="button_continue">CONTINUE</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="button_start_navigation">START NAVIGATION</string>
 </resources>
