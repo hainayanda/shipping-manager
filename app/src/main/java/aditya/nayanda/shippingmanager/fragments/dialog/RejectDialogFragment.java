@@ -29,7 +29,10 @@ public class RejectDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_reject, container);
+        View view = inflater.inflate(R.layout.dialog_reject, container);
+        view.findViewById(R.id.button_submit_reject).setOnClickListener(button -> this.dismiss());
+        view.findViewById(R.id.button_cancel_reject).setOnClickListener(button -> this.dismiss());
+        return view;
     }
 
     @Override
