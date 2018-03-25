@@ -53,4 +53,5 @@
     <string name="button_start_navigation">START NAVIGATION</string>
     <string name="button_start">START DELIVERY</string>
     <string name="shipment_remarks">Total Stop : {1}</string>
+    <string name="title_marker_my_location">My Location</string>
 </resources>

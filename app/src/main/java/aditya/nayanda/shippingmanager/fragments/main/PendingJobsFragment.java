@@ -174,7 +174,7 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
             Job job = (Job) adapter.getChild(groupPosition, childPosition);
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             JobDetailsDialogFragment dialogFragment = JobDetailsDialogFragment.newInstance(0.9f, job);
-            dialogFragment.show(fragmentManager, "reject_dialog");
+            dialogFragment.show(fragmentManager, "details_dialog");
             return true;
         });
     }
