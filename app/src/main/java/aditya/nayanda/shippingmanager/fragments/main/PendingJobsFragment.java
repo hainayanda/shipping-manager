@@ -1,26 +1,13 @@
 package aditya.nayanda.shippingmanager.fragments.main;
 
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.model.Job;
-import aditya.nayanda.shippingmanager.model.ListOfJobs;
-import aditya.nayanda.shippingmanager.view.holder.JobViewHolder;
-import aditya.nayanda.shippingmanager.view.holder.ListOfJobViewHolder;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import aditya.nayanda.shippingmanager.R;
+import aditya.nayanda.shippingmanager.activities.MapsActivity;
 import aditya.nayanda.shippingmanager.fragments.dialog.JobDetailsDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
@@ -44,6 +32,7 @@ import aditya.nayanda.shippingmanager.view.holder.ListOfJobViewHolder;
 
 public class PendingJobsFragment extends Fragment implements ExpandableListAdapter {
 
+    private static final int MAX_PENDING_JOBS = 3;
     private LayoutInflater inflater;
     private List<ListOfJobs> pendingJobs = new ArrayList<>();
 
@@ -60,13 +49,14 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         ExpandableListView pendingJobListView = view.findViewById(R.id.list_pending_jobs);
         pendingJobListView.setAdapter(this);
         setListListener(pendingJobListView);
+
         return view;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceData) {
         super.onCreate(savedInstanceData);
-        for (int i = 0; i <= 5; i++) {
+        for (int i = 0; i < MAX_PENDING_JOBS; i++) {
             pendingJobs.add(ListOfJobs.newDummyInstance(i));
         }
     }
@@ -130,8 +120,11 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         } else {
             convertView = inflater.inflate(R.layout.content_list_of_jobs, null, false);
             ListOfJobViewHolder holder = new ListOfJobViewHolder(getContext(), convertView);
+
             ImageButton button = convertView.findViewById(R.id.content_start_job);
             button.setFocusable(false);
+            button.setOnClickListener(this::setStartNavigation);
+
             convertView.setTag(holder);
             holder.apply(listOfJobs, isExpanded);
         }
@@ -192,5 +185,21 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
             dialogFragment.show(fragmentManager, "reject_dialog");
             return true;
         });
+    }
+
+    private void setStartNavigation(View view) {
+        Job[] jobs = getJobsArguments();
+        Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
+        mapIntent.putExtra("JOBS", jobs);
+        startActivity(mapIntent);
+    }
+
+    private Job[] getJobsArguments() {
+        try {
+            return (Job[]) getArguments().getParcelableArray("JOBS");
+        } catch (NullPointerException e) {
+            Log.e("ERROR", e.toString());
+        }
+        return new Job[0];
     }
 }

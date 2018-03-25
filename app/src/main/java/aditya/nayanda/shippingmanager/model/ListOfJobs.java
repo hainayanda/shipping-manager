@@ -28,12 +28,12 @@ public class ListOfJobs implements Parcelable {
     private String shipmentNumber;
     private List<Job> jobs;
 
-    public ListOfJobs(String shipmentNumber, @NonNull List<Job> jobs) {
+    private ListOfJobs(String shipmentNumber, @NonNull List<Job> jobs) {
         this.shipmentNumber = shipmentNumber;
         this.jobs = jobs;
     }
 
-    protected ListOfJobs(Parcel in) {
+    private ListOfJobs(Parcel in) {
         shipmentNumber = in.readString();
         jobs = in.createTypedArrayList(Job.CREATOR);
     }
@@ -44,7 +44,7 @@ public class ListOfJobs implements Parcelable {
         int totalJobs = new Random().nextInt(10) + 1;
         List<Job> jobs = new ArrayList<>(totalJobs);
         for (int j = 0; j < totalJobs; j++) {
-            jobs.add(Job.newDummyInstance(j));
+            jobs.add(Job.newDummyHistoryInstance(j));
         }
         return new ListOfJobs(number, jobs);
     }

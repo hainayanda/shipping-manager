@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import aditya.nayanda.shippingmanager.fragments.main.ActiveJobsFragment;
+import aditya.nayanda.shippingmanager.fragments.main.JobsHistoryFragment;
 import aditya.nayanda.shippingmanager.fragments.main.PendingJobsFragment;
 
 /**
@@ -26,7 +27,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return PendingJobsFragment.newInstance(new Bundle());
             case 2:
-                return PendingJobsFragment.newInstance(new Bundle());
+                return JobsHistoryFragment.newInstance(new Bundle());
             case 3:
                 return ActiveJobsFragment.newInstance(new Bundle());
             default:
