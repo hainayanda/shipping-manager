@@ -10,6 +10,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,6 +25,7 @@ import java.util.Collections;
 
 import aditya.nayanda.shippingmanager.R;
 import aditya.nayanda.shippingmanager.activities.ConfirmationActivity;
+import aditya.nayanda.shippingmanager.activities.MapsActivity;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.util.Utilities;
 import aditya.nayanda.shippingmanager.view.holder.JobViewHolder;
@@ -152,6 +156,22 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
     @Override
     public boolean isEmpty() {
         return jobs.isEmpty();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.action_bar_active_jobs, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_go_to_map) {
+            Intent mapIntent = new Intent(getContext(), MapsActivity.class);
+            mapIntent.putExtra("JOBS", jobs.toArray(new Job[jobs.size()]));
+            startActivity(mapIntent);
+            getActivity().finish();
+        }
+        return true;
     }
 
     private void setListListener(ListView jobListView) {

@@ -15,15 +15,25 @@
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="45dp"
-        android:background="@drawable/bg_primary"
-        android:fontFamily="sans-serif"
-        android:text="@string/button_start_navigation"
-        android:textColor="@color/white"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_my_location"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="54dp"
+        android:layout_marginStart="12dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_my_location"
+        map:borderWidth="0dp"
         map:layout_constraintBottom_toBottomOf="parent"
-        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toEndOf="@id/button_start_navigation" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button_start_navigation"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="54dp"
+        android:layout_marginStart="27dp"
+        android:src="@drawable/ic_delivery"
+        map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

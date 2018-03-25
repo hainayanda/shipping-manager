@@ -135,7 +135,9 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     Bundle bundle = new Bundle();
                     bundle.putParcelableArray("JOBS", getJobsFromIntent());
-                    return ActiveJobsFragment.newInstance(bundle);
+                    ActiveJobsFragment fragment = ActiveJobsFragment.newInstance(bundle);
+                    fragment.setHasOptionsMenu(true);
+                    return fragment;
                 case 1:
                     return PendingJobsFragment.newInstance(new Bundle());
                 case 2:
