@@ -5,12 +5,16 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,7 +160,14 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
             Intent jobDetailsIntent = new Intent(ActiveJobsFragment.this.getContext(), ConfirmationActivity.class);
             jobDetailsIntent.putExtra("JOB", job);
             jobDetailsIntent.putExtra("JOBS", jobs.toArray());
-            startActivity(jobDetailsIntent);
+            ImageView itemIcon = ((JobViewHolder) view.getTag()).getItemIcon();
+            TextView itemName = ((JobViewHolder) view.getTag()).getItemName();
+            Pair<View, String> iconPair = new Pair<>(itemIcon, "item_icon");
+            Pair<View, String> itemNamePair = new Pair<>(itemName, "item_name");
+            ActivityOptionsCompat options = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(ActiveJobsFragment.this.getActivity(),
+                            iconPair, itemNamePair);
+            startActivity(jobDetailsIntent, options.toBundle());
         });
     }
 

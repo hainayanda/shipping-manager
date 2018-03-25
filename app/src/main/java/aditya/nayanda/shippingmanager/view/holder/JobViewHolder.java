@@ -71,4 +71,11 @@ public class JobViewHolder {
         itemAddress.setText(address);
     }
 
+    public ImageView getItemIcon() {
+        return icon;
+    }
+
+    public TextView getItemName() {
+        return itemName;
+    }
 }

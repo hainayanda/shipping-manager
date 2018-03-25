@@ -61,6 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/drawable_grey_circle"
+            android:transitionName="item_icon"
             app:layout_constraintBottom_toTopOf="@id/picture_guide_bottom"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@id/picture_guide_end"
@@ -86,7 +87,8 @@
                 android:fontFamily="sans-serif"
                 android:text="@string/holder_item_name"
                 android:textColor="@color/colorPrimary"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:transitionName="item_name" />
 
             <TextView
                 android:id="@+id/item_detail"
