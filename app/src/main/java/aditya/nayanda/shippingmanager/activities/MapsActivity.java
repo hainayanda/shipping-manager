@@ -80,7 +80,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         googleMap.setOnMarkerClickListener(marker -> {
             if (marker.getTag() != null) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Long press for more info", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), R.string.toast_long_press_info, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM, 0, 342);
                 toast.show();
             }
@@ -178,7 +178,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 getLocationPermission();
             }
         } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
+            Log.e("ERROR", e.toString());
         }
     }
 
@@ -206,7 +206,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
             }
         } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
+            Log.e("ERROR", e.toString());
         }
     }
 
