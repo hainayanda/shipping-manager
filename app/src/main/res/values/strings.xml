@@ -35,6 +35,7 @@
     <string name="button_confirm">CONFIRM</string>
     <string name="button_reject">REJECT</string>
     <string name="holder_item_name">ITEM NAME</string>
+<<<<<<< .merge_file_a02900
 
     <!-- String related to confirmation -->
     <string name="title_rejection_details">Rejection details</string>
@@ -46,4 +47,8 @@
     <string name="title_confirmation_details">Confirmation Details</string>
     <string name="radio_hint_registered">Received by registered recipient</string>
     <string name="radio_hint_delegation">Received by delegation</string>
+=======
+    <string name="button_start">START DELIVERY</string>
+    <string name="shipment_remarks">Total Stop : {totalJobs}</string>
+>>>>>>> .merge_file_a05816
 </resources>
