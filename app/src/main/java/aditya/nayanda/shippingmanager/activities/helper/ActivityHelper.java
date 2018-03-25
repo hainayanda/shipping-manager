@@ -18,6 +18,10 @@ public class ActivityHelper {
     private ActivityHelper() {
     }
 
+    public static void setCustomActionBarWith(String text, Activity activity) throws NullPointerException {
+        setToCustomActionBar(activity).setText(text);
+    }
+
     public static TextView setToCustomActionBar(Activity activity) {
         if (activity instanceof AppCompatActivity)
             return setToCustomActionBar((AppCompatActivity) activity);
@@ -27,11 +31,12 @@ public class ActivityHelper {
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setIcon(android.R.color.transparent);
-            actionBar.setElevation(0);
+            actionBar.setElevation(4);
             Toolbar toolbar = (Toolbar) actionBar.getCustomView().getParent();
             toolbar.setContentInsetsAbsolute(0, 0);
             toolbar.getContentInsetEnd();
             toolbar.setPadding(0, 0, 0, 0);
+            actionBar.getCustomView().findViewById(R.id.action_bar_back_button).setOnClickListener(view -> activity.onBackPressed());
             return actionBar.getCustomView().findViewById(R.id.action_bar_title);
         } catch (NullPointerException e) {
             Log.e("ERROR", "error to set custom action bar :\n" + e.toString());
@@ -46,11 +51,12 @@ public class ActivityHelper {
             actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setIcon(android.R.color.transparent);
-            actionBar.setElevation(0);
+            actionBar.setElevation(4);
             android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) actionBar.getCustomView().getParent();
             toolbar.setContentInsetsAbsolute(0, 0);
             toolbar.getContentInsetEnd();
             toolbar.setPadding(0, 0, 0, 0);
+            actionBar.getCustomView().findViewById(R.id.action_bar_back_button).setOnClickListener(view -> activity.onBackPressed());
             return actionBar.getCustomView().findViewById(R.id.action_bar_title);
         } catch (NullPointerException e) {
             Log.e("ERROR", "error to set custom action bar :\n" + e.toString());

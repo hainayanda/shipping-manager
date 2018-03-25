@@ -6,31 +6,59 @@
     android:background="@color/background"
     tools:context="aditya.nayanda.shippingmanager.activities.SplashScreenActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
+    <android.support.constraint.Guideline
+        android:id="@+id/splash_logo_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/splash_logo_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/pertamina_logo_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.93" />
     <ImageView
-        android:id="@+id/splash_logo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:id="@+id/app_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/pertaminalogoonly"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/carrier"
+        android:transitionName="logo"
+        app:layout_constraintBottom_toBottomOf="@id/splash_logo_bottom"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintTop_toTopOf="@id/splash_logo_top" />
 
-    <TextView
-        android:id="@+id/splash_text"
-        android:layout_width="250dp"
-        android:layout_height="30dp"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="@id/splash_logo"
-        app:layout_constraintTop_toBottomOf="@id/splash_logo" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="9dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/pertamina_logo_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_logo" />
+
+    <ImageView
+        android:id="@+id/pertamina_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="9dp"
+        android:src="@drawable/pertamina_logo_type"
+        android:transitionName="pertamina_logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pertamina_logo_top" />
 
 </android.support.constraint.ConstraintLayout>

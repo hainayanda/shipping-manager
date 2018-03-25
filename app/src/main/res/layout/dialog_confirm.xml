@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:padding="9dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:includeFontPadding="false"
+            android:text="@string/title_confirmation_details"
+            android:textColor="@color/colorPrimary"
+            android:textSize="21sp"
+            tools:fontFamily="sans-serif" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="27dp"
+            android:checkedButton="@id/radio_registered">
+
+            <RadioButton
+                android:id="@+id/radio_registered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_hint_registered"
+                android:textColor="@color/grey" />
+
+            <RadioButton
+                android:id="@+id/radio_delegation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_hint_delegation"
+                android:textColor="@color/grey" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:includeFontPadding="false"
+            android:text="@string/title_secondary_details"
+            android:textColor="@color/brokenGrey"
+            android:textSize="13sp"
+            tools:fontFamily="sans-serif" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:text="@string/hint_details"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            tools:fontFamily="sans-serif" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/brokenGrey"
+            android:maxLines="9"
+            android:scrollbars="none"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button_submit_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_button"
+            android:text="@string/button_submit"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/button_cancel_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@android:color/transparent"
+            android:text="@string/button_cancel"
+            android:textColor="@color/grey" />
+    </LinearLayout>
+</FrameLayout>
