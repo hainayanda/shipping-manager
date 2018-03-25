@@ -153,10 +153,12 @@
         app:layout_constraintTop_toTopOf="@id/splash_logo_top" />
 
     <ImageView
+        android:id="@+id/pertamina_logo"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_margin="9dp"
         android:src="@drawable/pertamina_logo_type"
+        android:transitionName="pertamina_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pertamina_logo_top" />
