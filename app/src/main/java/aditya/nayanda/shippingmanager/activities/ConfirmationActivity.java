@@ -16,6 +16,7 @@ import aditya.nayanda.shippingmanager.fragments.dialog.ConfirmDialogFragment;
 import aditya.nayanda.shippingmanager.fragments.dialog.RejectDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.Receiver;
+import aditya.nayanda.shippingmanager.util.Utilities;
 
 public class ConfirmationActivity extends AppCompatActivity {
 
@@ -126,8 +127,7 @@ public class ConfirmationActivity extends AppCompatActivity {
 
     private Job[] getJobsExtras() {
         try {
-            Job[] jobs = (Job[]) getIntent().getExtras().getParcelableArray("JOBS");
-            if (jobs == null) jobs = new Job[0];
+            Job[] jobs = Utilities.castParcelableToJobs(getIntent().getParcelableArrayExtra("JOBS"));
             return jobs;
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());

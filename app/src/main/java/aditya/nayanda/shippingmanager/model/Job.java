@@ -25,19 +25,16 @@ public class Job implements Parcelable {
             return new Job[size];
         }
     };
-
     private String itemName;
     private String itemDetail;
     private Receiver receiver;
     private ItemType type;
-
     public Job(String itemName, String itemDetail, Receiver receiver, ItemType type) {
         this.itemName = itemName;
         this.itemDetail = itemDetail;
         this.receiver = receiver;
         this.type = type;
     }
-
     public Job(Parcel in) {
         itemName = in.readString();
         itemDetail = in.readString();
@@ -86,6 +83,28 @@ public class Job implements Parcelable {
                         "Lorem ipsum dolor sit amet",
                         Receiver.newDummyInstance(index), ItemType.OTHER);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Job)) return false;
+
+        Job job = (Job) o;
+
+        return (itemName != null ? itemName.equals(job.itemName) : job.itemName == null)
+                && (itemDetail != null ? itemDetail.equals(job.itemDetail) : job.itemDetail == null)
+                && (receiver != null ? receiver.equals(job.receiver) : job.receiver == null)
+                && type == job.type;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = itemName != null ? itemName.hashCode() : 0;
+        result = 31 * result + (itemDetail != null ? itemDetail.hashCode() : 0);
+        result = 31 * result + (receiver != null ? receiver.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 
     @Override

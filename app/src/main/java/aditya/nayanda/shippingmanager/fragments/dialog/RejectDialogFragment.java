@@ -61,7 +61,7 @@ public class RejectDialogFragment extends DialogFragment {
 
     private Job[] getJobsArguments() {
         try {
-            Job[] jobs = (Job[]) getArguments().getParcelableArray("JOBS");
+            Job[] jobs = Utilities.castParcelableToJobs(getArguments().getParcelableArray("JOBS"));
             if (jobs == null) jobs = new Job[0];
             return jobs;
         } catch (NullPointerException e) {

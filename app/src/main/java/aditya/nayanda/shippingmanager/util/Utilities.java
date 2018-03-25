@@ -1,5 +1,9 @@
 package aditya.nayanda.shippingmanager.util;
 
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+
 import aditya.nayanda.shippingmanager.model.Job;
 
 /**
@@ -10,17 +14,28 @@ public class Utilities {
 
     public static Job[] createArrayWithout(Job job, Job[] jobs) {
         if (jobs.length > 0) {
-            Job[] newJobs = new Job[jobs.length];
-            int j = 0;
+            ArrayList<Job> jobArrayList = new ArrayList<>();
             for (Job jobMember : jobs) {
                 if (!jobMember.equals(job)) {
-                    newJobs[j] = jobMember;
-                    j++;
+                    jobArrayList.add(jobMember);
                 }
             }
-            jobs = newJobs;
+            return jobArrayList.toArray(new Job[jobArrayList.size()]);
         }
         return jobs;
+    }
+
+    public static Job[] castParcelableToJobs(Parcelable[] parcelables) {
+        if (parcelables == null) return new Job[0];
+        if (parcelables.length == 0) return new Job[0];
+        else {
+            Job[] jobs = new Job[parcelables.length];
+
+            for (int i = 0; i < parcelables.length; i++) {
+                jobs[i] = (Job) parcelables[i];
+            }
+            return jobs;
+        }
     }
 
 }

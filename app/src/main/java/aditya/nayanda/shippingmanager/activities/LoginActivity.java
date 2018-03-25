@@ -7,6 +7,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -22,6 +23,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         final AutoCompleteTextView loginForm = findViewById(R.id.email);
         final EditText passwordForm = findViewById(R.id.password);
         final ProgressBar progressBar = findViewById(R.id.login_progress);
@@ -42,8 +46,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void FakeLogin() {
-        Intent IntentHome = new Intent(this, MainActivity.class);
-        startActivity(IntentHome);
+        Intent intentHome = new Intent(this, MainActivity.class);
+        intentHome.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intentHome);
+        finish();
     }
 
     @Override

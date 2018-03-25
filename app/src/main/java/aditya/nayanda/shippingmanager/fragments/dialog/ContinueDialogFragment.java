@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import aditya.nayanda.shippingmanager.R;
+import aditya.nayanda.shippingmanager.activities.MainActivity;
 import aditya.nayanda.shippingmanager.activities.MapsActivity;
 import aditya.nayanda.shippingmanager.fragments.dialog.helper.DialogHelper;
 import aditya.nayanda.shippingmanager.model.Job;
@@ -38,9 +39,21 @@ public class ContinueDialogFragment extends DialogFragment {
             Job[] jobs = getJobsArguments();
             Intent mapIntent = new Intent(getContext(), MapsActivity.class);
             mapIntent.putExtra("JOBS", jobs);
+            mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mapIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(mapIntent);
+            getActivity().finish();
         });
-        view.findViewById(R.id.button_cancel_continue).setOnClickListener(button -> this.dismiss());
+        view.findViewById(R.id.button_cancel_continue).setOnClickListener(button -> {
+            Job[] jobs = getJobsArguments();
+            Intent mainIntent = new Intent(getContext(), MainActivity.class);
+            mainIntent.putExtra("JOBS", jobs);
+            mainIntent.putExtra("INDEX", 0);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(mainIntent);
+            getActivity().finish();
+        });
         return view;
     }
 

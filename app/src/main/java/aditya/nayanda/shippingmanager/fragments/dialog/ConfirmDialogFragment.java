@@ -61,8 +61,7 @@ public class ConfirmDialogFragment extends DialogFragment {
 
     private Job[] getJobsArguments() {
         try {
-            Job[] jobs = (Job[]) getArguments().getParcelableArray("JOBS");
-            if (jobs == null) jobs = new Job[0];
+            Job[] jobs = Utilities.castParcelableToJobs(getArguments().getParcelableArray("JOBS"));
             return jobs;
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
