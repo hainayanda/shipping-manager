@@ -6,11 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import aditya.nayanda.shippingmanager.fragments.main.ActiveJobsFragment;
-<<<<<<< .merge_file_a02592
-import aditya.nayanda.shippingmanager.fragments.main.UserMenuFragment;
-=======
 import aditya.nayanda.shippingmanager.fragments.main.PendingJobsFragment;
->>>>>>> .merge_file_a11392
+import aditya.nayanda.shippingmanager.fragments.main.UserMenuFragment;
 
 /**
  * Created by nayanda on 22/03/18.

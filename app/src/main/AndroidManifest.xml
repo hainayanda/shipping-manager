@@ -29,15 +29,13 @@
             android:label="@string/title_activity_login"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".activities.MainActivity" />
-<<<<<<< .merge_file_a04296
         <activity
             android:name=".activities.ConfirmationActivity"
             android:label="@string/title_activity_confirmation" />
-
-=======
-        <activity android:name=".activities.ConfirmationActivity"></activity>
         <activity android:name=".activities.DeliveryStartActivity" />
->>>>>>> .merge_file_a03104
+        <activity
+            android:name=".activities.ChangePasswordActivity"
+            android:label="Change Password" />
     </application>
 
 </manifest>
