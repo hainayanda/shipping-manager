@@ -56,4 +56,5 @@
     <string name="title_marker_my_location">My Location</string>
     <string name="menu_go_to_map">Go to map</string>
     <string name="toast_long_press_info">Long press for more info</string>
+    <string name="shipment_number">Shipment {1}</string>
 </resources>
