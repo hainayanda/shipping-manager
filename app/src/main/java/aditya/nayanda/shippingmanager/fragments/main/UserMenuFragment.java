@@ -46,7 +46,7 @@ public class UserMenuFragment extends Fragment {
         Button buttonChangePass = view.findViewById(R.id.button_change_password);
         buttonChangePass.setOnClickListener(view1 -> {
             Intent intentChangePass = new Intent(getActivity(), ChangePasswordActivity.class);
-            intentChangePass.getExtras().putParcelable("AGENT", agent);
+            intentChangePass.putExtra("AGENT", agent);
             startActivity(intentChangePass);
         });
         Button buttonLogout = view.findViewById(R.id.button_logout);
