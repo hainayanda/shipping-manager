@@ -18,11 +18,11 @@ import aditya.nayanda.shippingmanager.model.Job;
 
 public class JobViewHolder {
 
-    private final Context context;
-    private final ImageView icon;
-    private final TextView itemName;
-    private final TextView itemDetails;
-    private final TextView itemAddress;
+    protected final Context context;
+    protected final ImageView icon;
+    protected final TextView itemName;
+    protected final TextView itemDetails;
+    protected final TextView itemAddress;
 
     public JobViewHolder(Context context, View view) {
         this.context = context;
@@ -71,4 +71,11 @@ public class JobViewHolder {
         itemAddress.setText(address);
     }
 
+    public ImageView getItemIcon() {
+        return icon;
+    }
+
+    public TextView getItemName() {
+        return itemName;
+    }
 }

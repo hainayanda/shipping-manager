@@ -117,6 +117,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/drawable_grey_circle"
+                        android:transitionName="item_icon"
                         app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toStartOf="@id/divider_details"
                         app:layout_constraintStart_toStartOf="parent"
@@ -140,7 +141,8 @@
                             android:fontFamily="sans-serif"
                             android:text="@string/holder_item_name"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:transitionName="item_name" />
 
                         <TextView
                             android:id="@+id/item_detail_details"

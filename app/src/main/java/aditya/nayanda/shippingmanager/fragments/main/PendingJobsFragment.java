@@ -5,20 +5,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import aditya.nayanda.shippingmanager.R;
+import aditya.nayanda.shippingmanager.fragments.dialog.JobDetailsDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
-import aditya.nayanda.shippingmanager.view.holder.JobViewHolder;
+import aditya.nayanda.shippingmanager.view.holder.ChildJobViewHolder;
 import aditya.nayanda.shippingmanager.view.holder.ListOfJobViewHolder;
 
 /**
@@ -42,7 +44,7 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         View view = inflater.inflate(R.layout.fragment_pending_jobs, container, false);
         ExpandableListView pendingJobListView = view.findViewById(R.id.list_pending_jobs);
         pendingJobListView.setAdapter(this);
-//        setListListener(pendingJobListView);
+        setListListener(pendingJobListView);
         return view;
     }
 
@@ -109,14 +111,14 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         ListOfJobs listOfJobs = (ListOfJobs) getGroup(groupPosition);
         if (convertView != null) {
             ListOfJobViewHolder holder = (ListOfJobViewHolder) convertView.getTag();
-            holder.apply(listOfJobs);
+            holder.apply(listOfJobs, isExpanded);
         } else {
             convertView = inflater.inflate(R.layout.content_list_of_jobs, null, false);
             ListOfJobViewHolder holder = new ListOfJobViewHolder(getContext(), convertView);
-            Button button = convertView.findViewById(R.id.content_start_job);
+            ImageButton button = convertView.findViewById(R.id.content_start_job);
             button.setFocusable(false);
             convertView.setTag(holder);
-            holder.apply(listOfJobs);
+            holder.apply(listOfJobs, isExpanded);
         }
         return convertView;
     }
@@ -125,20 +127,20 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         Job job = (Job) getChild(groupPosition, childPosition);
         if (convertView != null) {
-            JobViewHolder holder = (JobViewHolder) convertView.getTag();
-            holder.apply(job);
+            ChildJobViewHolder holder = (ChildJobViewHolder) convertView.getTag();
+            holder.apply(job, isLastChild);
         } else {
-            convertView = inflater.inflate(R.layout.content_jobs, null, false);
-            JobViewHolder holder = new JobViewHolder(getContext(), convertView);
+            convertView = inflater.inflate(R.layout.content_child_list_of_jobs, null, false);
+            ChildJobViewHolder holder = new ChildJobViewHolder(getContext(), convertView);
             convertView.setTag(holder);
-            holder.apply(job);
+            holder.apply(job, isLastChild);
         }
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
     @Override
@@ -166,6 +168,14 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         return getGroupId((int) groupId);
     }
 
-//    private void setListListener(ListView pendingJobsListView) {
-//    }
+    private void setListListener(ExpandableListView expandableList) {
+        expandableList.setOnChildClickListener((expandableListView, view, groupPosition, childPosition, id) -> {
+            PendingJobsFragment adapter = (PendingJobsFragment) expandableList.getExpandableListAdapter();
+            Job job = (Job) adapter.getChild(groupPosition, childPosition);
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            JobDetailsDialogFragment dialogFragment = JobDetailsDialogFragment.newInstance(0.9f, job);
+            dialogFragment.show(fragmentManager, "details_dialog");
+            return true;
+        });
+    }
 }

@@ -1,8 +1,9 @@
 package aditya.nayanda.shippingmanager.model;
 
-import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Random;
 
@@ -24,26 +25,20 @@ public class Job implements Parcelable {
             return new Job[size];
         }
     };
-
     private String itemName;
     private String itemDetail;
-    private String Address;
-    private Location location;
+    private Receiver receiver;
     private ItemType type;
-
-    public Job(String itemName, String itemDetail, String address, Location location, ItemType type) {
+    public Job(String itemName, String itemDetail, Receiver receiver, ItemType type) {
         this.itemName = itemName;
         this.itemDetail = itemDetail;
-        Address = address;
-        this.location = location;
+        this.receiver = receiver;
         this.type = type;
     }
-
     public Job(Parcel in) {
         itemName = in.readString();
         itemDetail = in.readString();
-        Address = in.readString();
-        location = in.readParcelable(Location.class.getClassLoader());
+        receiver = in.readParcelable(Receiver.class.getClassLoader());
         int rawType = in.readInt();
         switch (rawType) {
             case 0:
@@ -65,41 +60,58 @@ public class Job implements Parcelable {
 
     public static Job newDummyInstance(int i) {
         int type = new Random().nextInt(4);
+        int index = i % 10;
         switch (type) {
             case 0:
                 return new Job("OIL " + i,
                         "Lorem ipsum dolor sit amet",
-                        "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        null, ItemType.OIL);
+                        Receiver.newDummyInstance(index), ItemType.OIL);
             case 1:
                 return new Job("GAS " + i,
                         "Lorem ipsum dolor sit amet",
-                        "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        null, ItemType.GAS);
+                        Receiver.newDummyInstance(index), ItemType.GAS);
             case 2:
                 return new Job("LUBE " + i,
                         "Lorem ipsum dolor sit amet",
-                        "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        null, ItemType.LUBE);
+                        Receiver.newDummyInstance(index), ItemType.LUBE);
             case 3:
                 return new Job("PETROCHEMICAL " + i,
                         "Lorem ipsum dolor sit amet",
-                        "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        null, ItemType.PETROCHEMICAL);
+                        Receiver.newDummyInstance(index), ItemType.PETROCHEMICAL);
             default:
                 return new Job("OTHER " + i,
                         "Lorem ipsum dolor sit amet",
-                        "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        null, ItemType.OTHER);
+                        Receiver.newDummyInstance(index), ItemType.OTHER);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Job)) return false;
+
+        Job job = (Job) o;
+
+        return (itemName != null ? itemName.equals(job.itemName) : job.itemName == null)
+                && (itemDetail != null ? itemDetail.equals(job.itemDetail) : job.itemDetail == null)
+                && (receiver != null ? receiver.equals(job.receiver) : job.receiver == null)
+                && type == job.type;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = itemName != null ? itemName.hashCode() : 0;
+        result = 31 * result + (itemDetail != null ? itemDetail.hashCode() : 0);
+        result = 31 * result + (receiver != null ? receiver.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(itemName);
         dest.writeString(itemDetail);
-        dest.writeString(Address);
-        dest.writeParcelable(location, flags);
+        dest.writeParcelable(receiver, flags);
         dest.writeInt(type.raw);
     }
 
@@ -116,12 +128,16 @@ public class Job implements Parcelable {
         return itemDetail;
     }
 
-    public String getAddress() {
-        return Address;
+    public Receiver getReceiver() {
+        return receiver;
     }
 
-    public Location getLocation() {
-        return location;
+    public LatLng getLocation() {
+        return receiver.getLocation();
+    }
+
+    public String getAddress() {
+        return receiver.getAddress();
     }
 
     public ItemType getType() {

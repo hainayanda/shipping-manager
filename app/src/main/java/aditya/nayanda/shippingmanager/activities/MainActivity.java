@@ -2,6 +2,9 @@ package aditya.nayanda.shippingmanager.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,7 +14,10 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import aditya.nayanda.shippingmanager.R;
 import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
-import aditya.nayanda.shippingmanager.adapter.MainPagerAdapter;
+import aditya.nayanda.shippingmanager.fragments.main.ActiveJobsFragment;
+import aditya.nayanda.shippingmanager.fragments.main.PendingJobsFragment;
+import aditya.nayanda.shippingmanager.model.Job;
+import aditya.nayanda.shippingmanager.util.Utilities;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
         public void onPageScrollStateChanged(int state) {
         }
     };
-
-    //BELOW IS CODE RELATED TO BOTTOM NAVIGATION
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +110,47 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             default:
                 return false;
+        }
+    }
+
+    private Job[] getJobsFromIntent() {
+        try {
+            Job[] jobs = Utilities.castParcelableToJobs(getIntent().getParcelableArrayExtra("JOBS"));
+            return jobs;
+        } catch (NullPointerException e) {
+            Log.e("ERROR", e.toString());
+        }
+        return new Job[0];
+    }
+
+    protected class MainPagerAdapter extends FragmentPagerAdapter {
+
+        MainPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int pos) {
+            switch (pos) {
+                case 0:
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArray("JOBS", getJobsFromIntent());
+                    ActiveJobsFragment fragment = ActiveJobsFragment.newInstance(bundle);
+                    fragment.setHasOptionsMenu(true);
+                    return fragment;
+                case 1:
+                    return PendingJobsFragment.newInstance(new Bundle());
+                case 2:
+                    return PendingJobsFragment.newInstance(new Bundle());
+                default:
+                    return ActiveJobsFragment.newInstance(new Bundle());
+            }
+
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
         }
     }
 }
