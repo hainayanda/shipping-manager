@@ -56,4 +56,7 @@
     <string name="title_marker_my_location">My Location</string>
     <string name="menu_go_to_map">Go to map</string>
     <string name="toast_long_press_info">Long press for more info</string>
+    <string name="message_failed_get_route">Failed to get route</string>
+    <string name="title_calculating_route">Calculating Route</string>
+    <string name="message_calculating_route">Calculating best route</string>
 </resources>
