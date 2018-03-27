@@ -57,43 +57,97 @@
             android:layout_margin="10dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:orientation="vertical"
+            android:background="@color/brokenGrey"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@id/container_photo_and_name"
             app:layout_constraintTop_toBottomOf="@id/name">
 
-            <TextView
-                android:id="@+id/employeeId"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="Employee Id"
+                    android:textColor="@color/grey"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="Phone Number"
+                    android:textColor="@color/grey"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="Email"
+                    android:textColor="@color/grey"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="Budi"
-                android:textColor="@color/colorPrimary"
-                android:textSize="17sp" />
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/employeeId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="Budi"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp" />
 
 
-            <TextView
-                android:id="@+id/phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="08876291023"
-                android:textColor="@color/colorPrimary"
-                android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="08876291023"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp" />
 
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="budi@email.com"
-                android:textColor="@color/colorPrimary"
-                android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="budi@email.com"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
     <Button
