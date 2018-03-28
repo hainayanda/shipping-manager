@@ -35,12 +35,16 @@ public class ListOfJobViewHolder {
     }
 
     public void apply(ListOfJobs listOfJobs, boolean isExpanded) {
-        String number = listOfJobs.getShipmentNumber();
+        String numberRaw = listOfJobs.getShipmentNumber();
+        String number = context.getString(R.string.shipment_number);
+        number = number.replace("{1}", numberRaw);
         if (number.length() > 20) number = number.substring(0, 15) + "...";
         shipmentNumber.setText(number);
+
         String remarks = context.getString(R.string.shipment_remarks);
         remarks = remarks.replace("{1}", Integer.toString(listOfJobs.getTotalJobs()));
         totalJobs.setText(remarks);
+
         indicator.setSelected(isExpanded);
         if (isExpanded) expandedBackground.setBackground(drawableExpandedBackground);
         else expandedBackground.setBackground(drawableTransparent);

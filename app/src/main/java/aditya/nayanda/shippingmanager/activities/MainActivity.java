@@ -15,7 +15,9 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import aditya.nayanda.shippingmanager.R;
 import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
 import aditya.nayanda.shippingmanager.fragments.main.ActiveJobsFragment;
+import aditya.nayanda.shippingmanager.fragments.main.JobsHistoryFragment;
 import aditya.nayanda.shippingmanager.fragments.main.PendingJobsFragment;
+import aditya.nayanda.shippingmanager.fragments.main.UserMenuFragment;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.util.Utilities;
 
@@ -141,9 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return PendingJobsFragment.newInstance(new Bundle());
                 case 2:
-                    return PendingJobsFragment.newInstance(new Bundle());
+                    return JobsHistoryFragment.newInstance(new Bundle());
                 default:
-                    return ActiveJobsFragment.newInstance(new Bundle());
+                    return UserMenuFragment.newInstance(new Bundle());
             }
 
         }

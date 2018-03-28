@@ -3,6 +3,7 @@ package aditya.nayanda.shippingmanager.view.holder;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import aditya.nayanda.shippingmanager.R;
@@ -29,5 +30,8 @@ public class ChildJobViewHolder extends JobViewHolder {
         apply(job);
         if (isLastChild) childLayout.setBackground(lastChildBackground);
         else childLayout.setBackground(normalChildBackground);
+        if (!job.isDelivered()) {
+            childLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.redTint));
+        }
     }
 }
