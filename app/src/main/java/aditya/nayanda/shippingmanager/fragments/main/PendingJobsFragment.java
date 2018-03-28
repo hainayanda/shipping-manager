@@ -113,7 +113,7 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        ListOfJobs listOfJobs = (ListOfJobs) getGroup(groupPosition);
+        final ListOfJobs listOfJobs = (ListOfJobs) getGroup(groupPosition);
         if (convertView != null) {
             ListOfJobViewHolder holder = (ListOfJobViewHolder) convertView.getTag();
             holder.apply(listOfJobs, isExpanded);
@@ -123,7 +123,7 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
 
             ImageButton button = convertView.findViewById(R.id.content_start_job);
             button.setFocusable(false);
-            button.setOnClickListener(this::setStartNavigation);
+            button.setOnClickListener(view -> startNavigation(view, listOfJobs));
 
             convertView.setTag(holder);
             holder.apply(listOfJobs, isExpanded);
@@ -187,19 +187,18 @@ public class PendingJobsFragment extends Fragment implements ExpandableListAdapt
         });
     }
 
-    private void setStartNavigation(View view) {
-        Job[] jobs = getJobsArguments();
+    private void startNavigation(View view, ListOfJobs jobs) {
         Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
         mapIntent.putExtra("JOBS", jobs);
         startActivity(mapIntent);
     }
 
-    private Job[] getJobsArguments() {
+    private ListOfJobs getJobsArguments() {
         try {
-            return (Job[]) getArguments().getParcelableArray("JOBS");
+            return (ListOfJobs) getArguments().getParcelable("JOBS");
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
         }
-        return new Job[0];
+        return null;
     }
 }

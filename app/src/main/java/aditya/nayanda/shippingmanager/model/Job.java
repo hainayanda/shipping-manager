@@ -12,7 +12,7 @@ import java.util.Random;
  * Created by nayanda on 22/03/18.
  */
 
-public class Job implements Parcelable {
+public class Job implements Parcelable, Locator {
 
     public static final Creator<Job> CREATOR = new Creator<Job>() {
         @Override
@@ -201,6 +201,11 @@ public class Job implements Parcelable {
 
     public LatLng getLocation() {
         return receiver.getLocation();
+    }
+
+    @Override
+    public String getDescription() {
+        return getReceiver().getDescription();
     }
 
     public String getAddress() {

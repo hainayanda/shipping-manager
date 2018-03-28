@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import aditya.nayanda.shippingmanager.R;
 import aditya.nayanda.shippingmanager.fragments.dialog.helper.DialogHelper;
 import aditya.nayanda.shippingmanager.model.Job;
-import aditya.nayanda.shippingmanager.util.Utilities;
+import aditya.nayanda.shippingmanager.model.ListOfJobs;
 
 /**
  * Created by nayanda on 24/03/18.
@@ -21,10 +21,10 @@ import aditya.nayanda.shippingmanager.util.Utilities;
 
 public class ConfirmDialogFragment extends DialogFragment {
 
-    public static ConfirmDialogFragment newInstance(float widthPercent, Job job, Job[] jobs) {
+    public static ConfirmDialogFragment newInstance(float widthPercent, Job job, ListOfJobs jobs) {
         Bundle args = new Bundle();
         args.putFloat("width", widthPercent);
-        args.putParcelableArray("JOBS", jobs);
+        args.putParcelable("JOBS", jobs);
         args.putParcelable("JOB", job);
         ConfirmDialogFragment fragment = new ConfirmDialogFragment();
         fragment.setArguments(args);
@@ -36,9 +36,9 @@ public class ConfirmDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_confirm, container);
         view.findViewById(R.id.button_submit_confirm).setOnClickListener(button -> {
-            Job[] jobs = getJobsArguments();
+            ListOfJobs jobs = getJobsArguments();
             Job job = getJobArguments();
-            jobs = Utilities.createArrayWithout(job, jobs);
+            jobs.getJobs().remove(job);
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             ContinueDialogFragment dialogFragment = ContinueDialogFragment.newInstance(0.9f, jobs);
             dialogFragment.show(fragmentManager, "continue_dialog");
@@ -59,14 +59,14 @@ public class ConfirmDialogFragment extends DialogFragment {
         }
     }
 
-    private Job[] getJobsArguments() {
+    private ListOfJobs getJobsArguments() {
         try {
-            Job[] jobs = Utilities.castParcelableToJobs(getArguments().getParcelableArray("JOBS"));
+            ListOfJobs jobs = getArguments().getParcelable("JOBS");
             return jobs;
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
         }
-        return new Job[0];
+        return null;
     }
 
     private Job getJobArguments() {

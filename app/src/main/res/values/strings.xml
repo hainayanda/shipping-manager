@@ -60,4 +60,5 @@
     <string name="title_calculating_route">Calculating Route</string>
     <string name="message_calculating_route">Calculating best route</string>
     <string name="shipment_number">Shipment {1}</string>
+    <string name="toast_ask_gmap_installation">Please install google map for navigation</string>
 </resources>

@@ -1,6 +1,7 @@
 package aditya.nayanda.shippingmanager.activities;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -19,9 +20,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,7 +37,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import aditya.nayanda.shippingmanager.R;
@@ -47,8 +45,8 @@ import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
 import aditya.nayanda.shippingmanager.activities.helper.MapHelper;
 import aditya.nayanda.shippingmanager.fragments.dialog.JobDetailsDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
-import aditya.nayanda.shippingmanager.model.Receiver;
-import aditya.nayanda.shippingmanager.util.Utilities;
+import aditya.nayanda.shippingmanager.model.ListOfJobs;
+import aditya.nayanda.shippingmanager.model.Locator;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -56,9 +54,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static boolean isPermissionGranted;
     private final ArrayList<Job> jobs = new ArrayList<>();
     float DEFAULT_ZOOM = 14;
+    private ListOfJobs listOfJobs;
     private GoogleMap googleMap;
-    private GeoDataClient geoDataClient;
-    private PlaceDetectionClient placeDetectionClient;
     private FusedLocationProviderClient locationProviderClient;
     private Location lastKnownLocation;
     private Marker myMarker;
@@ -70,25 +67,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {
-                Job job = (Job) marker.getTag();
-                if (job == null) return;
-                marker.setPosition(job.getLocation());
+                Locator locator = (Locator) marker.getTag();
+                if (locator == null) return;
+                marker.setPosition(locator.getLocation());
                 onLongPressListener.onLongPress(marker);
                 marker.showInfoWindow();
             }
 
             @Override
             public void onMarkerDrag(Marker marker) {
-                Job job = (Job) marker.getTag();
-                if (job == null) return;
-                marker.setPosition(job.getLocation());
+                Locator locator = (Locator) marker.getTag();
+                if (locator == null) return;
+                marker.setPosition(locator.getLocation());
             }
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                Job job = (Job) marker.getTag();
-                if (job == null) return;
-                marker.setPosition(job.getLocation());
+                Locator locator = (Locator) marker.getTag();
+                if (locator == null) return;
+                marker.setPosition(locator.getLocation());
             }
         });
 
@@ -101,13 +98,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         actionBarTitle.setText(R.string.title_activity_maps);
 
         setContentView(R.layout.activity_maps);
-        Collections.addAll(jobs, getJobsFromIntent());
+        if (listOfJobs == null) fetchListOfJobs();
+        if (listOfJobs == null) {
+            onBackPressed();
+            return;
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        geoDataClient = Places.getGeoDataClient(this, null);
-        placeDetectionClient = Places.getPlaceDetectionClient(this, null);
         locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         findViewById(R.id.button_my_location).setOnClickListener(view -> getDeviceLocation());
@@ -119,18 +118,34 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         setMarkerListener(googleMap);
 
-        if (jobs.size() == 0) {
-            Collections.addAll(jobs, getJobsFromIntent());
+        if (listOfJobs == null) fetchListOfJobs();
+        if (listOfJobs == null) {
+            onBackPressed();
+            return;
         }
+        addMarker(listOfJobs.getWareHouse());
         for (Job job : jobs) {
             addMarker(job);
         }
         if (jobs.size() > 0) {
             findViewById(R.id.button_start_navigation).setOnClickListener(view -> {
-                Uri gMapIntentUri = MapHelper.createGoogleMapRouteIntentUri(jobs.get(0).getLocation());
+                LatLng origin = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                LatLng lastDestination = listOfJobs.getWareHouse().getLocation();
+                List<LatLng> destinations = new LinkedList<>();
+                for (Job job : jobs) {
+                    destinations.add(job.getLocation());
+                }
+                Uri gMapIntentUri = MapHelper.createGoogleMapRouteIntentUri(origin, lastDestination, destinations);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gMapIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
-                startActivity(mapIntent);
+                try {
+                    startActivity(mapIntent);
+                } catch (ActivityNotFoundException e) {
+                    Log.e("ERROR", e.toString());
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.toast_ask_gmap_installation, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
             });
         }
         getLocationPermission();
@@ -138,12 +153,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    private void fetchListOfJobs() {
+        listOfJobs = getJobsFromIntent();
+        jobs.addAll(listOfJobs.getJobs());
+    }
+
     private void setMarkerListener(GoogleMap googleMap) {
         setOnLongPressListener(googleMap, marker -> {
-            Job thisJob = (Job) marker.getTag();
-            if (thisJob == null) return;
+            Locator locator = (Locator) marker.getTag();
+            if (!(locator instanceof Job)) return;
             FragmentManager fragmentManager = MapsActivity.this.getSupportFragmentManager();
-            JobDetailsDialogFragment dialogFragment = JobDetailsDialogFragment.newInstance(0.9f, thisJob);
+            JobDetailsDialogFragment dialogFragment = JobDetailsDialogFragment.newInstance(0.9f, (Job) locator);
             dialogFragment.show(fragmentManager, "details_dialog");
         });
 
@@ -161,7 +181,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onBackPressed() {
         super.onBackPressed();
         Intent mainIntent = new Intent(this.getApplicationContext(), MainActivity.class);
-        mainIntent.putExtra("JOBS", jobs);
+        mainIntent.putExtra("JOBS", listOfJobs);
         mainIntent.putExtra("INDEX", 0);
         startActivity(mainIntent);
         finish();
@@ -234,7 +254,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         } else {
                             myMarker.setPosition(latLng);
                         }
-                        calculateRoute(latLng, jobs);
+                        calculateRoute(latLng, listOfJobs.getWareHouse().getLocation(), jobs);
                     }
                 });
             }
@@ -243,10 +263,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void calculateRoute(LatLng origin, List<Job> jobs) {
+    private void calculateRoute(LatLng origin, LatLng lastDestination, List<Job> jobs) {
         if (jobs.size() > 0) {
             ArrayList<LatLng> params = new ArrayList<>();
             params.add(origin);
+            params.add(lastDestination);
             for (Job job : jobs) {
                 params.add(job.getLocation());
             }
@@ -255,25 +276,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void addMarker(Job job) {
-        LatLng latLng = job.getLocation();
-        Receiver receiver = job.getReceiver();
-        String title = receiver.getFirstName() + " " + receiver.getLastName();
+    private void addMarker(Locator locator) {
+        LatLng latLng = locator.getLocation();
+        String title = locator.getDescription();
         MarkerOptions markerOptions = new MarkerOptions().position(latLng)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                 .title(title).draggable(true);
         Marker marker = googleMap.addMarker(markerOptions);
-        marker.setTag(job);
+        marker.setTag(locator);
     }
 
-    private Job[] getJobsFromIntent() {
+    private ListOfJobs getJobsFromIntent() {
         try {
-            Job[] jobs = Utilities.castParcelableToJobs(getIntent().getParcelableArrayExtra("JOBS"));
+            ListOfJobs jobs = getIntent().getParcelableExtra("JOBS");
             return jobs;
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
         }
-        return new Job[0];
+        return null;
     }
 
     private interface OnLongPressListener {
@@ -314,10 +334,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         protected List<LatLng> doInBackground(LatLng... latLngs) {
             publishProgress(15);
             LatLng origin = latLngs[0];
-            List<LatLng> destinations = Arrays.asList(latLngs).subList(1, latLngs.length);
+            LatLng lastDestination = latLngs[1];
+            List<LatLng> destinations = Arrays.asList(latLngs).subList(2, latLngs.length);
             publishProgress(30);
             try {
-                JSONObject result = MapHelper.requestRoute(origin, destinations, order, apiKey);
+                JSONObject result = MapHelper.requestRoute(origin, lastDestination, destinations, order, apiKey);
                 publishProgress(55);
                 List<LatLng> polyLine = MapHelper.parseJsonRoute(result);
                 List<Integer> routeOrder = MapHelper.getWayPointsOrder(result);

@@ -20,14 +20,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import aditya.nayanda.shippingmanager.R;
 import aditya.nayanda.shippingmanager.activities.ConfirmationActivity;
 import aditya.nayanda.shippingmanager.activities.MapsActivity;
 import aditya.nayanda.shippingmanager.model.Job;
-import aditya.nayanda.shippingmanager.util.Utilities;
+import aditya.nayanda.shippingmanager.model.ListOfJobs;
 import aditya.nayanda.shippingmanager.view.holder.JobViewHolder;
 
 /**
@@ -36,7 +33,7 @@ import aditya.nayanda.shippingmanager.view.holder.JobViewHolder;
 
 public class ActiveJobsFragment extends Fragment implements ListAdapter {
 
-    private ArrayList<Job> jobs;
+    private ListOfJobs jobs;
     private LayoutInflater inflater;
 
     public static ActiveJobsFragment newInstance(Bundle args) {
@@ -51,29 +48,17 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
         jobs = getJobs();
     }
 
-    private ArrayList<Job> getDummyJobs() {
-        ArrayList<Job> jobs = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            jobs.add(Job.newDummyInstance(i));
-        }
-        return jobs;
-    }
-
-    private ArrayList<Job> getJobs() {
+    private ListOfJobs getJobs() {
         if (jobs != null) {
-            if (jobs.size() > 0) return jobs;
+            if (jobs.getJobs().size() > 0) return jobs;
         }
         try {
-            Job[] jobs = Utilities.castParcelableToJobs(getArguments().getParcelableArray("JOBS"));
-            if (jobs.length == 0) return getDummyJobs();
-            else {
-                ArrayList<Job> arrJobs = new ArrayList<>();
-                Collections.addAll(arrJobs, jobs);
-                return arrJobs;
-            }
+            ListOfJobs jobs = getArguments().getParcelable("JOBS");
+            if (jobs == null) jobs = ListOfJobs.newDummyInstance(0);
+            return jobs;
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
-            return getDummyJobs();
+            return ListOfJobs.newDummyInstance(0);
         }
     }
 
@@ -110,12 +95,12 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
 
     @Override
     public int getCount() {
-        return jobs.size();
+        return jobs.getTotalJobs();
     }
 
     @Override
     public Object getItem(int i) {
-        return jobs.get(i);
+        return jobs.getJobs().get(i);
     }
 
     @Override
@@ -155,7 +140,7 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
 
     @Override
     public boolean isEmpty() {
-        return jobs.isEmpty();
+        return jobs.getJobs().isEmpty();
     }
 
     @Override
@@ -167,7 +152,7 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_go_to_map) {
             Intent mapIntent = new Intent(getContext(), MapsActivity.class);
-            mapIntent.putExtra("JOBS", jobs.toArray(new Job[jobs.size()]));
+            mapIntent.putExtra("JOBS", jobs);
             startActivity(mapIntent);
             getActivity().finish();
         }
@@ -204,10 +189,10 @@ public class ActiveJobsFragment extends Fragment implements ListAdapter {
         jobListView.setOnItemClickListener((adapterView, view, position, id) -> {
             ActiveJobsFragment adapter = (ActiveJobsFragment) adapterView.getAdapter();
             Job job = (Job) adapter.getItem(position);
-            ArrayList<Job> jobs = adapter.getJobs();
+            ListOfJobs jobs = adapter.getJobs();
             Intent jobDetailsIntent = new Intent(ActiveJobsFragment.this.getContext(), ConfirmationActivity.class);
             jobDetailsIntent.putExtra("JOB", job);
-            jobDetailsIntent.putExtra("JOBS", jobs.toArray(new Job[jobs.size()]));
+            jobDetailsIntent.putExtra("JOBS", jobs);
             ImageView itemIcon = ((JobViewHolder) view.getTag()).getItemIcon();
             TextView itemName = ((JobViewHolder) view.getTag()).getItemName();
             Pair<View, String> iconPair = new Pair<>(itemIcon, "item_icon");

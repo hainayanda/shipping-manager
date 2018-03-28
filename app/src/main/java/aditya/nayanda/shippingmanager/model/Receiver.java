@@ -10,7 +10,7 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by nayanda on 25/03/18.
  */
 
-public class Receiver implements Parcelable {
+public class Receiver implements Parcelable, Locator {
 
     public static final Creator<Receiver> CREATOR = new Creator<Receiver>() {
         @Override
@@ -149,6 +149,11 @@ public class Receiver implements Parcelable {
 
     public LatLng getLocation() {
         return location;
+    }
+
+    @Override
+    public String getDescription() {
+        return getFirstName() + " " + getLastName();
     }
 
     public Gender getGender() {

@@ -26,20 +26,46 @@ import java.util.List;
 public class MapHelper {
 
     private static final String BASE_API_URL = "https://maps.googleapis.com/maps/api/directions/";
-    private static final String BASE_MAP_URL = "google.navigation:q=";
+    private static final String BASE_MAP_URL = "https://www.google.com/maps/dir/?api=1";
+    private static final String BASE_MAP_URI = "google.navigation:q=";
     private static final String OPTIMIZED_PARAMETER = "&waypoints=optimize:true|";
 
     public static Uri createGoogleMapRouteIntentUri(LatLng destinations) {
 
-        StringBuilder stringBuilder = new StringBuilder(BASE_MAP_URL)
+        StringBuilder stringBuilder = new StringBuilder(BASE_MAP_URI)
                 .append((float) destinations.latitude)
                 .append(",")
                 .append((float) destinations.longitude);
         return Uri.parse(stringBuilder.toString());
     }
 
-    private static URL createUrlForRoute(LatLng origin, List<LatLng> destinations, RouteOrder order, String apiKey) throws MalformedURLException {
-        if (destinations.size() == 0 || destinations.size() > 10)
+    public static Uri createGoogleMapRouteIntentUri(LatLng origin, LatLng lastDestination, List<LatLng> destinations) {
+        if (destinations.size() == 0 || destinations.size() > 9)
+            throw new IllegalArgumentException("google restricted the max destination from 1 to 10");
+        StringBuilder stringBuilder = new StringBuilder(BASE_MAP_URL)
+                .append("&origin=")
+                .append((float) origin.latitude)
+                .append(",")
+                .append((float) origin.longitude)
+                .append("&destination=")
+                .append((float) lastDestination.latitude)
+                .append(",")
+                .append((float) lastDestination.longitude)
+                .append("&waypoints=");
+        for (LatLng destination : destinations) {
+            stringBuilder.append((float) destination.latitude)
+                    .append(",")
+                    .append((float) destination.longitude)
+                    .append("|");
+        }
+
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1)
+                .append("&travelmode=driving");
+        return Uri.parse(stringBuilder.toString());
+    }
+
+    private static URL createUrlForRoute(LatLng origin, LatLng lastDestination, List<LatLng> destinations, RouteOrder order, String apiKey) throws MalformedURLException {
+        if (destinations.size() == 0 || destinations.size() > 9)
             throw new IllegalArgumentException("google restricted the max destination from 1 to 10");
 
         StringBuilder stringBuilder = new StringBuilder(BASE_API_URL)
@@ -51,9 +77,9 @@ public class MapHelper {
 
         switch (order) {
             case OPTIMIZE:
-                stringBuilder.append((float) origin.latitude)
+                stringBuilder.append((float) lastDestination.latitude)
                         .append(",")
-                        .append((float) origin.longitude)
+                        .append((float) lastDestination.longitude)
                         .append(OPTIMIZED_PARAMETER);
                 break;
             default:
@@ -74,13 +100,13 @@ public class MapHelper {
         return new URL(url);
     }
 
-    public static JSONObject requestRoute(LatLng origin, List<LatLng> destinations, RouteOrder order, String apiKey)
+    public static JSONObject requestRoute(LatLng origin, LatLng lastDestination, List<LatLng> destinations, RouteOrder order, String apiKey)
             throws IOException, JSONException {
         String data = null;
         InputStream inputStream = null;
         HttpURLConnection urlConnection = null;
         try {
-            URL url = createUrlForRoute(origin, destinations, order, apiKey);
+            URL url = createUrlForRoute(origin, lastDestination, destinations, order, apiKey);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.connect();
 
