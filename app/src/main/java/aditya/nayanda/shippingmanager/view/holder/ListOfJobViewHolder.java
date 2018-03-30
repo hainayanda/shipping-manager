@@ -23,9 +23,11 @@ public class ListOfJobViewHolder {
     private final FrameLayout expandedBackground;
     private final Drawable drawableExpandedBackground;
     private final Drawable drawableTransparent;
+    private final ImageView jobIcon;
 
     public ListOfJobViewHolder(Context context, View view) {
         this.context = context;
+        jobIcon = view.findViewById(R.id.job_icon);
         shipmentNumber = view.findViewById(R.id.content_shipment_number);
         totalJobs = view.findViewById(R.id.content_total_jobs);
         indicator = view.findViewById(R.id.expand_indicator);
@@ -48,6 +50,11 @@ public class ListOfJobViewHolder {
         indicator.setSelected(isExpanded);
         if (isExpanded) expandedBackground.setBackground(drawableExpandedBackground);
         else expandedBackground.setBackground(drawableTransparent);
+    }
+
+    public void apply(ListOfJobs listOfJobs, boolean isExpanded, int customIconId) {
+        apply(listOfJobs, isExpanded);
+        jobIcon.setImageResource(customIconId);
     }
 
 }

@@ -8,24 +8,20 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
 import aditya.nayanda.shippingmanager.fragments.main.ActiveJobsFragment;
 import aditya.nayanda.shippingmanager.fragments.main.JobsHistoryFragment;
 import aditya.nayanda.shippingmanager.fragments.main.PendingJobsFragment;
 import aditya.nayanda.shippingmanager.fragments.main.UserMenuFragment;
-import aditya.nayanda.shippingmanager.model.Job;
-import aditya.nayanda.shippingmanager.util.Utilities;
+import aditya.nayanda.shippingmanager.model.ListOfJobs;
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationViewEx navigation;
     private ViewPager fragmentContainer;
-    private TextView actionBarTitle;
     private BottomNavigationView.OnNavigationItemSelectedListener itemSelectedListener
             = item -> {
         int index = -1;
@@ -65,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        actionBarTitle = ActivityHelper.setToCustomActionBar(this);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fragmentContainer = findViewById(R.id.main_frame);
         fragmentContainer.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
         fragmentContainer.addOnPageChangeListener(pageChangeListener);
@@ -78,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         int navigationIndex = getIntentIndex();
         navigation.getMenu().getItem(navigationIndex).setChecked(true);
         selectBottomNavigationBy(navigationIndex);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private int getIntentIndex() {
@@ -99,30 +101,30 @@ public class MainActivity extends AppCompatActivity {
     boolean setTitleByIndex(int index) {
         switch (index) {
             case 0:
-                actionBarTitle.setText(R.string.title_active_jobs);
+                getSupportActionBar().setTitle(R.string.title_active_jobs);
                 return true;
             case 1:
-                actionBarTitle.setText(R.string.title_pending);
+                getSupportActionBar().setTitle(R.string.title_pending);
                 return true;
             case 2:
-                actionBarTitle.setText(R.string.title_history);
+                getSupportActionBar().setTitle(R.string.title_history);
                 return true;
             case 3:
-                actionBarTitle.setText(R.string.title_user_menu);
+                getSupportActionBar().setTitle(R.string.title_user_menu);
                 return true;
             default:
                 return false;
         }
     }
 
-    private Job[] getJobsFromIntent() {
+    private ListOfJobs getJobsFromIntent() {
         try {
-            Job[] jobs = Utilities.castParcelableToJobs(getIntent().getParcelableArrayExtra("JOBS"));
+            ListOfJobs jobs = getIntent().getParcelableExtra("JOBS");
             return jobs;
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
         }
-        return new Job[0];
+        return null;
     }
 
     protected class MainPagerAdapter extends FragmentPagerAdapter {
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             switch (pos) {
                 case 0:
                     Bundle bundle = new Bundle();
-                    bundle.putParcelableArray("JOBS", getJobsFromIntent());
+                    bundle.putParcelable("JOBS", getJobsFromIntent());
                     ActiveJobsFragment fragment = ActiveJobsFragment.newInstance(bundle);
                     fragment.setHasOptionsMenu(true);
                     return fragment;

@@ -61,4 +61,15 @@
     <string name="message_calculating_route">Calculating best route</string>
     <string name="shipment_number">Shipment {1}</string>
     <string name="toast_ask_gmap_installation">Please install google map for navigation</string>
+    <string name="label_button_change_pass">Change Password</string>
+    <string name="label_button_logout">Logout</string>
+    <string name="label_id">ID</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_email">email</string>
+    <string name="label_phone">Phone</string>
+    <string name="label_address">Addess</string>
+    <string name="title_activity_change_password">Change Password</string>
+    <string name="button_logout">Logout</string>
+    <string name="label_logout_dialog">Are you sure?</string>
+    <string name="label_complement_logout_dialog">Logout</string>
 </resources>

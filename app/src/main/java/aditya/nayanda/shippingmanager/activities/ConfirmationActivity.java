@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.io.InputStream;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
 import aditya.nayanda.shippingmanager.fragments.dialog.ConfirmDialogFragment;
 import aditya.nayanda.shippingmanager.fragments.dialog.RejectDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
@@ -24,9 +23,7 @@ public class ConfirmationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
-        String title = getSupportActionBar().getTitle().toString();
-        ActivityHelper.setCustomActionBarWith(title, this);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Job job = getJobExtras();
         applyView(job);
 
@@ -42,6 +39,12 @@ public class ConfirmationActivity extends AppCompatActivity {
             ConfirmDialogFragment dialogFragment = ConfirmDialogFragment.newInstance(0.9f, job, jobs);
             dialogFragment.show(fragmentManager, "confirm_dialog");
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void applyView(Job job) {

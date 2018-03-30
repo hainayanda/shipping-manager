@@ -20,6 +20,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_change_password);
         Agent agent = getIntent().getExtras().getParcelable("AGENT");
         TextView oldPass = findViewById(R.id.old_password);
@@ -45,9 +47,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         (dialogInterface, i) -> dialogInterface.dismiss()).show();
             }
 
-
         });
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
 }

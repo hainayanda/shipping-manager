@@ -15,7 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,7 +40,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
 import aditya.nayanda.shippingmanager.activities.helper.MapHelper;
 import aditya.nayanda.shippingmanager.fragments.dialog.JobDetailsDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
@@ -94,9 +92,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TextView actionBarTitle = ActivityHelper.setToCustomActionBar(this);
-        actionBarTitle.setText(R.string.title_activity_maps);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_maps);
         if (listOfJobs == null) fetchListOfJobs();
         if (listOfJobs == null) {
@@ -110,6 +106,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         findViewById(R.id.button_my_location).setOnClickListener(view -> getDeviceLocation());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
