@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -41,6 +43,9 @@
         <activity
             android:name=".activities.ConfirmationActivity"
             android:label="@string/title_activity_confirmation" />
+        <activity
+            android:name=".activities.ChangePasswordActivity"
+            android:label="@string/title_activity_change_password" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -53,12 +58,18 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".activities.DeliveryStartActivity" />
-        <activity android:name=".activities.DeliveryStartActivity" />
+            android:label="@string/title_activity_maps">
+            <intent-filter>
+                <action android:name="com.google.android.apps.maps" />
+                <category android:name="android.intent.category.APP_MAPS" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

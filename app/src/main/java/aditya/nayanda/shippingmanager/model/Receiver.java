@@ -10,7 +10,7 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by nayanda on 25/03/18.
  */
 
-public class Receiver implements Parcelable {
+public class Receiver implements Parcelable, Locator {
 
     public static final Creator<Receiver> CREATOR = new Creator<Receiver>() {
         @Override
@@ -99,6 +99,29 @@ public class Receiver implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Receiver)) return false;
+
+        Receiver receiver = (Receiver) o;
+
+        return (firstName != null ? firstName.equals(receiver.firstName) : receiver.firstName == null)
+                && (lastName != null ? lastName.equals(receiver.lastName) : receiver.lastName == null)
+                && gender == receiver.gender && (address != null ? address.equals(receiver.address) : receiver.address == null)
+                && (location != null ? location.equals(receiver.location) : receiver.location == null);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(firstName);
         dest.writeString(lastName);
@@ -126,6 +149,11 @@ public class Receiver implements Parcelable {
 
     public LatLng getLocation() {
         return location;
+    }
+
+    @Override
+    public String getDescription() {
+        return getFirstName() + " " + getLastName();
     }
 
     public Gender getGender() {

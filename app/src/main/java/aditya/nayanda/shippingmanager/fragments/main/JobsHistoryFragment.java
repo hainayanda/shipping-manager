@@ -125,7 +125,7 @@ public class JobsHistoryFragment extends Fragment implements ExpandableListAdapt
             ImageButton button = convertView.findViewById(R.id.content_start_job);
             button.setVisibility(View.GONE);
             convertView.setTag(holder);
-            holder.apply(listOfJobs, isExpanded);
+            holder.apply(listOfJobs, isExpanded, R.raw.history_checklist);
         }
         return convertView;
     }

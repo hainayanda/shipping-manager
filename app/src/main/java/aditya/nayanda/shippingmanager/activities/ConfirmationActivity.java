@@ -11,10 +11,10 @@ import android.widget.TextView;
 import java.io.InputStream;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.helper.ActivityHelper;
 import aditya.nayanda.shippingmanager.fragments.dialog.ConfirmDialogFragment;
 import aditya.nayanda.shippingmanager.fragments.dialog.RejectDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
+import aditya.nayanda.shippingmanager.model.ListOfJobs;
 import aditya.nayanda.shippingmanager.model.Receiver;
 
 public class ConfirmationActivity extends AppCompatActivity {
@@ -23,24 +23,28 @@ public class ConfirmationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
-        String title = getSupportActionBar().getTitle().toString();
-        ActivityHelper.setCustomActionBarWith(title, this);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final Job job = getJobExtras();
         applyView(job);
 
         findViewById(R.id.button_reject).setOnClickListener(view -> {
-            Job[] jobs = getJobsExtras();
+            ListOfJobs jobs = getJobsExtras();
             FragmentManager fragmentManager = getSupportFragmentManager();
             RejectDialogFragment dialogFragment = RejectDialogFragment.newInstance(0.9f, job, jobs);
             dialogFragment.show(fragmentManager, "reject_dialog");
         });
         findViewById(R.id.button_confirm).setOnClickListener(view -> {
-            Job[] jobs = getJobsExtras();
+            ListOfJobs jobs = getJobsExtras();
             FragmentManager fragmentManager = getSupportFragmentManager();
             ConfirmDialogFragment dialogFragment = ConfirmDialogFragment.newInstance(0.9f, job, jobs);
             dialogFragment.show(fragmentManager, "confirm_dialog");
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void applyView(Job job) {
@@ -124,14 +128,13 @@ public class ConfirmationActivity extends AppCompatActivity {
         return null;
     }
 
-    private Job[] getJobsExtras() {
+    private ListOfJobs getJobsExtras() {
         try {
-            Job[] jobs = (Job[]) getIntent().getExtras().getParcelableArray("JOBS");
-            if (jobs == null) jobs = new Job[0];
+            ListOfJobs jobs = getIntent().getParcelableExtra("JOBS");
             return jobs;
         } catch (NullPointerException e) {
             Log.e("ERROR", e.toString());
         }
-        return new Job[0];
+        return null;
     }
 }

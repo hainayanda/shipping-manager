@@ -26,32 +26,36 @@ public class ListOfJobs implements Parcelable {
         }
     };
     private String shipmentNumber;
+    private WareHouse wareHouse;
     private List<Job> jobs;
 
-    private ListOfJobs(String shipmentNumber, @NonNull List<Job> jobs) {
+    private ListOfJobs(String shipmentNumber, WareHouse wareHouse, @NonNull List<Job> jobs) {
         this.shipmentNumber = shipmentNumber;
         this.jobs = jobs;
+        this.wareHouse = wareHouse;
     }
 
-    private ListOfJobs(Parcel in) {
+    protected ListOfJobs(Parcel in) {
         shipmentNumber = in.readString();
+        wareHouse = in.readParcelable(WareHouse.class.getClassLoader());
         jobs = in.createTypedArrayList(Job.CREATOR);
     }
 
     public static ListOfJobs newDummyInstance(int i) {
         String number;
         number = String.format("%010d", i);
-        int totalJobs = new Random().nextInt(10) + 1;
+        int totalJobs = new Random().nextInt(6) + 3;
         List<Job> jobs = new ArrayList<>(totalJobs);
         for (int j = 0; j < totalJobs; j++) {
             jobs.add(Job.newDummyHistoryInstance(j));
         }
-        return new ListOfJobs(number, jobs);
+        return new ListOfJobs(number, WareHouse.newDummyInstance(), jobs);
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(shipmentNumber);
+        dest.writeParcelable(wareHouse, flags);
         dest.writeTypedList(jobs);
     }
 
@@ -74,5 +78,9 @@ public class ListOfJobs implements Parcelable {
 
     public Job getJobById(int index) {
         return this.jobs.get(index);
+    }
+
+    public WareHouse getWareHouse() {
+        return wareHouse;
     }
 }

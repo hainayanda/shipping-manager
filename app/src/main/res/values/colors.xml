@@ -8,6 +8,7 @@
     <color name="colorSecondary">#a9de56</color>
     <color name="background">#FFFFFF</color>
     <color name="black_overlay">#66000000</color>
+    <color name="brokenBlack">#282828</color>
     <color name="grey">#888888</color>
     <color name="brokenGrey">#AFAFAF</color>
     <color name="darkerWhite">#D0D0D0</color>

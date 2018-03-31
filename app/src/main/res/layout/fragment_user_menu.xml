@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dp">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/agent_photo_guide"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/list_separator_guide"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.26" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/mid_guide"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <ImageView
+            android:id="@+id/agent_photo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/sender"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/agent_photo_guide"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/agent_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:maxLines="2"
+            android:text="Firstname Lastname"
+            android:textColor="@color/brokenBlack"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@id/agent_photo"
+            app:layout_constraintEnd_toStartOf="@id/agent_photo_guide"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/performance_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Weekly Performance :"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/agent_photo" />
+
+        <TextView
+            android:id="@+id/performance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="Good"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/performance_label"
+            app:layout_constraintStart_toEndOf="@id/performance_label" />
+        <ImageView
+            android:id="@+id/deliver_icon"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/ic_deliver"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/performance_label" />
+
+        <TextView
+            android:id="@+id/deliver_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="10 / 20 jobs"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/deliver_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/deliver_icon" />
+
+        <ProgressBar
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="18dp"
+            android:progress="50"
+            android:progressBackgroundTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@id/deliver_icon"
+            app:layout_constraintEnd_toStartOf="@id/agent_photo"
+            app:layout_constraintStart_toEndOf="@id/deliver_icon"
+            app:layout_constraintTop_toTopOf="@id/deliver_icon" />
+
+        <ImageView
+            android:id="@+id/success_icon"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_success"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/deliver_icon" />
+
+        <TextView
+            android:id="@+id/sucess_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="9 / 10 success"
+            android:textColor="@color/colorSecondaryDark"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/success_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/success_icon" />
+
+        <ProgressBar
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="18dp"
+            android:progress="90"
+            android:progressBackgroundTint="@color/colorSecondary"
+            android:progressTint="@color/colorSecondaryDark"
+            app:layout_constraintBottom_toBottomOf="@id/success_icon"
+            app:layout_constraintEnd_toStartOf="@id/agent_photo"
+            app:layout_constraintStart_toEndOf="@id/success_icon"
+            app:layout_constraintTop_toTopOf="@id/success_icon" />
+
+        <ImageView
+            android:id="@+id/failed_icon"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:src="@drawable/ic_failed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/success_icon" />
+        <TextView
+            android:id="@+id/failed_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="1 / 10 failed"
+            android:textColor="@color/colorAccentDark"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/failed_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/failed_icon" />
+
+        <ProgressBar
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="18dp"
+            android:progress="10"
+            android:progressBackgroundTint="@color/colorAccent"
+            android:progressTint="@color/colorAccentDark"
+            app:layout_constraintBottom_toBottomOf="@id/failed_icon"
+            app:layout_constraintEnd_toStartOf="@id/agent_photo"
+            app:layout_constraintStart_toEndOf="@id/failed_icon"
+            app:layout_constraintTop_toTopOf="@id/failed_icon" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/brokenGrey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/failed_icon" />
+
+        <View
+            android:id="@+id/list_separator"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="27dp"
+            android:background="@color/brokenGrey"
+            app:layout_constraintBottom_toBottomOf="@id/address"
+            app:layout_constraintStart_toEndOf="@id/list_separator_guide"
+            app:layout_constraintTop_toBottomOf="@id/failed_icon" />
+
+        <TextView
+            android:id="@+id/employee_id_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/label_id"
+            android:textColor="@color/brokenBlack"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/failed_icon" />
+        <TextView
+            android:id="@+id/employee_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="27dp"
+            android:fontFamily="sans-serif"
+            android:text="Employee ID"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/list_separator_guide"
+            app:layout_constraintTop_toBottomOf="@id/failed_icon" />
+        <TextView
+            android:id="@+id/full_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/label_full_name"
+            android:textColor="@color/brokenBlack"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/employee_id" />
+
+        <TextView
+            android:id="@+id/full_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="sans-serif"
+            android:text="Firstname Lastname"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/list_separator_guide"
+            app:layout_constraintTop_toBottomOf="@id/employee_id" />
+
+        <TextView
+            android:id="@+id/email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/label_email"
+            android:textColor="@color/brokenBlack"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/full_name" />
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="sans-serif"
+            android:text="lorem_ipsum@lorem.com"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/list_separator_guide"
+            app:layout_constraintTop_toBottomOf="@id/full_name" />
+
+        <TextView
+            android:id="@+id/phone_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/label_phone"
+            android:textColor="@color/brokenBlack"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email" />
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="sans-serif"
+            android:text="0812345678"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/list_separator_guide"
+            app:layout_constraintTop_toBottomOf="@id/email" />
+
+        <TextView
+            android:id="@+id/address_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/label_address"
+            android:textColor="@color/brokenBlack"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phone" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/dummy_sentences"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/list_separator_guide"
+            app:layout_constraintTop_toBottomOf="@id/phone" />
+
+        <Button
+            android:id="@+id/button_change_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="9dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_primary"
+            android:text="@string/label_button_change_pass"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/mid_guide"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list_separator" />
+
+        <Button
+            android:id="@+id/button_logout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_alert"
+            android:text="@string/label_button_logout"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mid_guide"
+            app:layout_constraintTop_toBottomOf="@id/list_separator" />
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
