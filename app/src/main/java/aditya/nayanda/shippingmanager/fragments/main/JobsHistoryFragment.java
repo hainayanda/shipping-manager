@@ -59,7 +59,7 @@ public class JobsHistoryFragment extends Fragment implements ExpandableListAdapt
     public void onCreate(@Nullable Bundle savedInstanceData) {
         super.onCreate(savedInstanceData);
         for (int i = 0; i <= 5; i++) {
-            jobsHistory.add(ListOfJobs.newDummyInstance(i));
+            jobsHistory.add(ListOfJobs.newDummyHistoryInstance(i));
         }
     }
 

@@ -370,7 +370,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     lineOptions = new PolylineOptions();
                     lineOptions.addAll(result);
                     lineOptions.width(15);
-                    lineOptions.color(getColor(R.color.colorPrimary));
+                    lineOptions.color(getResources().getColor(R.color.colorPrimary));
                     MapsActivity.this.googleMap.addPolyline(lineOptions);
                 } else showFailedGetRouteMessage();
             }

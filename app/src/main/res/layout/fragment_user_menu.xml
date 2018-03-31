@@ -77,6 +77,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/performance_label"
             app:layout_constraintStart_toEndOf="@id/performance_label" />
+
         <ImageView
             android:id="@+id/deliver_icon"
             android:layout_width="27dp"
@@ -151,6 +152,7 @@
             android:src="@drawable/ic_failed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/success_icon" />
+
         <TextView
             android:id="@+id/failed_status"
             android:layout_width="wrap_content"
@@ -206,6 +208,7 @@
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/failed_icon" />
+
         <TextView
             android:id="@+id/employee_id"
             android:layout_width="0dp"
@@ -219,6 +222,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/list_separator_guide"
             app:layout_constraintTop_toBottomOf="@id/failed_icon" />
+
         <TextView
             android:id="@+id/full_name_label"
             android:layout_width="wrap_content"
@@ -256,6 +260,7 @@
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/full_name" />
+
         <TextView
             android:id="@+id/email"
             android:layout_width="0dp"
