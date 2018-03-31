@@ -40,7 +40,7 @@ public class WareHouse implements Parcelable, Locator {
     public static WareHouse newDummyInstance() {
         return new WareHouse("Sunter Warehouse",
                 "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                new LatLng(-6.147094, 106.889167));
+                new LatLng(-6.172723, 106.832178));
     }
 
     @Override

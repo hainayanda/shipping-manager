@@ -57,43 +57,43 @@ public class Receiver implements Parcelable, Locator {
             case 0:
                 return new Receiver("James", "Bond", Gender.Male,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.269977, 106.765158));
+                        new LatLng(-6.165834, 106.830492)); //KCJ
             case 1:
                 return new Receiver("Amelia", "Earheart", Gender.Female,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.259576, 106.767668));
+                        new LatLng(-6.173399, 106.845112)); //Pasar Senen
             case 2:
                 return new Receiver("Bill", "Gates", Gender.Male,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.253413, 106.773304));
+                        new LatLng(-6.166999, 106.842623)); //SPBU 1
             case 3:
                 return new Receiver("Meliana", "Monika", Gender.Female,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.251206, 106.778160));
+                        new LatLng(-6.155095, 106.807089)); //SPBU 2
             case 4:
                 return new Receiver("Tommy", "Gunawan", Gender.Male,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.258368, 106.77156));
+                        new LatLng(-6.166009, 106.809358)); // ROXY 1
             case 5:
                 return new Receiver("Ling", "Ming", Gender.Female,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.279392, 106.772587));
+                        new LatLng(-6.168819, 106.808211)); // ROXY 2
             case 6:
                 return new Receiver("Muhammad", "Djarot", Gender.Male,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.277470, 106.781733));
+                        new LatLng(-6.238666, 106.801418)); // MABES POLRI
             case 7:
                 return new Receiver("Siti", "Aminah", Gender.Female,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.260239, 106.781849));
+                        new LatLng(-6.189638, 106.830803)); // YANTEK MENTENG
             case 8:
                 return new Receiver("Markus", "Antonius", Gender.Male,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.250212, 106.781236));
+                        new LatLng(-6.186644, 106.846173)); // POLRES JAKARTA PUSAT
             default:
                 return new Receiver("Jessica", "Christalle", Gender.Female,
                         "Lorem ipsum dolor sit amet, ne cum ipsum atqui voluptaria, vocibus intellegam vis et",
-                        new LatLng(-6.245706, 106.781456));
+                        new LatLng(-6.156374, 106.849739)); // INDOMARET
 
         }
     }

@@ -169,16 +169,12 @@ public class MapHelper {
             JSONArray jsonRoutes = routeResponse.getJSONArray("routes");
 
             for (int i = 0; i < jsonRoutes.length(); i++) {
-                JSONArray jsonLegs = ((JSONObject) jsonRoutes.get(i)).getJSONArray("legs");
+                JSONArray jsonSteps = ((JSONObject) jsonRoutes.get(i)).getJSONArray("waypoint_order");
 
-                for (int j = 0; j < jsonLegs.length(); j++) {
-                    JSONArray jsonSteps = ((JSONObject) jsonLegs.get(j)).getJSONArray("waypoint_order");
-
-                    for (int k = 0; k < jsonSteps.length(); k++) {
-                        String num = jsonSteps.get(k).toString();
-                        int parsedInt = Integer.parseInt(num);
-                        order.add(parsedInt);
-                    }
+                for (int j = 0; j < jsonSteps.length(); j++) {
+                    String num = jsonSteps.get(j).toString();
+                    int parsedInt = Integer.parseInt(num);
+                    order.add(parsedInt);
                 }
             }
         } catch (Exception e) {
