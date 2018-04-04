@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.SplashScreenActivity"
+            android:name=".activity.starter.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme">
@@ -35,16 +35,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".activity.starter.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activity.main.MainActivity" />
         <activity
-            android:name=".activities.ConfirmationActivity"
+            android:name=".activity.secondary.ConfirmationActivity"
             android:label="@string/title_activity_confirmation" />
         <activity
-            android:name=".activities.ChangePasswordActivity"
+            android:name=".activity.secondary.ChangePasswordActivity"
             android:label="@string/title_activity_change_password" />
 
         <!--
@@ -63,7 +63,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".activities.MapsActivity"
+            android:name=".activity.secondary.MapsActivity"
             android:label="@string/title_activity_maps">
             <intent-filter>
                 <action android:name="com.google.android.apps.maps" />

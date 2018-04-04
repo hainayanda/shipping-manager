@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.fragments.dialog;
+package aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.MainActivity;
-import aditya.nayanda.shippingmanager.activities.MapsActivity;
-import aditya.nayanda.shippingmanager.fragments.dialog.helper.DialogHelper;
+import aditya.nayanda.shippingmanager.activity.main.MainActivity;
+import aditya.nayanda.shippingmanager.activity.secondary.MapsActivity;
+import aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog.helper.DialogHelper;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
 
 /**

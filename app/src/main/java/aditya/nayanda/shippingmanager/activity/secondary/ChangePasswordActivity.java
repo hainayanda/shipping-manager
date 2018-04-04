@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.activities;
+package aditya.nayanda.shippingmanager.activity.secondary;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.main.MainActivity;
+import aditya.nayanda.shippingmanager.activity.main.MainActivity;
 import aditya.nayanda.shippingmanager.model.Agent;
 
 
@@ -36,14 +36,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
             String confPassUser = confPass.getText().toString();
             if (oldPassUser.equals(agent.getUserPassword()) && confPassUser.equals(newPassUser)) {
                 agent.setUserPassword(confPassUser);
-                Intent intentChangePass = new Intent(MainActivity.ChangePasswordActivity.this, MainActivity.class);
+                Intent intentChangePass = new Intent(ChangePasswordActivity.this, MainActivity.class);
                 startActivity(intentChangePass);
             } else if (newPassUser.equals(" ")) {
-                new AlertDialog.Builder(MainActivity.ChangePasswordActivity.this).setTitle("Failed")
+                new AlertDialog.Builder(ChangePasswordActivity.this).setTitle("Failed")
                         .setMessage("Your password can't be empty").setPositiveButton("OK",
                         (dialogInterface, i) -> dialogInterface.dismiss()).show();
             } else {
-                new AlertDialog.Builder(MainActivity.ChangePasswordActivity.this).setTitle("Failed")
+                new AlertDialog.Builder(ChangePasswordActivity.this).setTitle("Failed")
                         .setMessage("Your password is incorrect").setPositiveButton("OK",
                         (dialogInterface, i) -> dialogInterface.dismiss()).show();
             }

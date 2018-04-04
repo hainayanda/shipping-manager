@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.activities;
+package aditya.nayanda.shippingmanager.activity.main;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -12,10 +12,10 @@ import android.util.Log;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.fragments.main.ActiveJobsFragment;
-import aditya.nayanda.shippingmanager.fragments.main.JobsHistoryFragment;
-import aditya.nayanda.shippingmanager.fragments.main.PendingJobsFragment;
-import aditya.nayanda.shippingmanager.fragments.main.UserMenuFragment;
+import aditya.nayanda.shippingmanager.activity.main.fragment.ActiveJobsFragment;
+import aditya.nayanda.shippingmanager.activity.main.fragment.JobsHistoryFragment;
+import aditya.nayanda.shippingmanager.activity.main.fragment.PendingJobsFragment;
+import aditya.nayanda.shippingmanager.activity.main.fragment.UserMenuFragment;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.activities;
+package aditya.nayanda.shippingmanager.activity.secondary;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.io.InputStream;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.fragments.dialog.ConfirmDialogFragment;
-import aditya.nayanda.shippingmanager.fragments.dialog.RejectDialogFragment;
+import aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog.ConfirmDialogFragment;
+import aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog.RejectDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
 import aditya.nayanda.shippingmanager.model.Receiver;

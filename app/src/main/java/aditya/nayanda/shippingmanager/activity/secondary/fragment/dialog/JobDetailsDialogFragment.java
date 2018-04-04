@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.fragments.dialog;
+package aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.io.InputStream;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.fragments.dialog.helper.DialogHelper;
+import aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog.helper.DialogHelper;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.Receiver;
 

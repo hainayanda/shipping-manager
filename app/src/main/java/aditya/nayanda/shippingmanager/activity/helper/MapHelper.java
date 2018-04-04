@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.activities.helper;
+package aditya.nayanda.shippingmanager.activity.helper;
 
 import android.net.Uri;
 import android.util.Log;

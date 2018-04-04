@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.activities;
+package aditya.nayanda.shippingmanager.activity.starter;
 
 import android.app.Activity;
 import android.content.Intent;

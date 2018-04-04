@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.fragments.main;
+package aditya.nayanda.shippingmanager.activity.main.fragment;
 
 import android.content.Intent;
 import android.database.DataSetObserver;
@@ -22,8 +22,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.ConfirmationActivity;
-import aditya.nayanda.shippingmanager.activities.MapsActivity;
+import aditya.nayanda.shippingmanager.activity.secondary.ConfirmationActivity;
+import aditya.nayanda.shippingmanager.activity.secondary.MapsActivity;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
 import aditya.nayanda.shippingmanager.view.holder.JobViewHolder;

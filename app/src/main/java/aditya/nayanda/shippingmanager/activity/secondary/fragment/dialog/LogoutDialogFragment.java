@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.fragments.dialog;
+package aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.LoginActivity;
-import aditya.nayanda.shippingmanager.fragments.dialog.helper.DialogHelper;
+import aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog.helper.DialogHelper;
+import aditya.nayanda.shippingmanager.activity.starter.LoginActivity;
 
 /**
  * Created by nayanda on 31/03/18.

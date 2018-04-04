@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.fragments.main;
+package aditya.nayanda.shippingmanager.activity.main.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activities.ChangePasswordActivity;
-import aditya.nayanda.shippingmanager.fragments.dialog.LogoutDialogFragment;
+import aditya.nayanda.shippingmanager.activity.secondary.ChangePasswordActivity;
+import aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog.LogoutDialogFragment;
 import aditya.nayanda.shippingmanager.model.Agent;
 
 /**

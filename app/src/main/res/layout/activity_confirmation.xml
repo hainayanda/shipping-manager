@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/brokenWhite"
     android:orientation="vertical"
-    tools:context="aditya.nayanda.shippingmanager.activities.ConfirmationActivity">
+    tools:context="aditya.nayanda.shippingmanager.activity.secondary.ConfirmationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

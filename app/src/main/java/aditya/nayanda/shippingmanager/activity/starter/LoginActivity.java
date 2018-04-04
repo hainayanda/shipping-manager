@@ -1,4 +1,4 @@
-package aditya.nayanda.shippingmanager.activities;
+package aditya.nayanda.shippingmanager.activity.starter;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import aditya.nayanda.shippingmanager.R;
+import aditya.nayanda.shippingmanager.activity.main.MainActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 

@@ -11,7 +11,7 @@
     android:background="@drawable/bg_card"
     android:elevation="2dp"
     android:padding="18dp"
-    tools:context="aditya.nayanda.shippingmanager.activities.ConfirmationActivity">
+    tools:context="aditya.nayanda.shippingmanager.activity.secondary.ConfirmationActivity">
 
     <ImageButton
         android:id="@+id/closed_button"
