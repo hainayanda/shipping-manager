@@ -47,6 +47,17 @@ public class ListOfJobs implements Parcelable {
         int totalJobs = new Random().nextInt(6) + 3;
         List<Job> jobs = new ArrayList<>(totalJobs);
         for (int j = 0; j < totalJobs; j++) {
+            jobs.add(Job.newDummyInstance(j));
+        }
+        return new ListOfJobs(number, WareHouse.newDummyInstance(), jobs);
+    }
+
+    public static ListOfJobs newDummyHistoryInstance(int i) {
+        String number;
+        number = String.format("%010d", i);
+        int totalJobs = new Random().nextInt(6) + 3;
+        List<Job> jobs = new ArrayList<>(totalJobs);
+        for (int j = 0; j < totalJobs; j++) {
             jobs.add(Job.newDummyHistoryInstance(j));
         }
         return new ListOfJobs(number, WareHouse.newDummyInstance(), jobs);

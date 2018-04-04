@@ -41,6 +41,7 @@ import java.util.List;
 
 import aditya.nayanda.shippingmanager.R;
 import aditya.nayanda.shippingmanager.activities.helper.MapHelper;
+import aditya.nayanda.shippingmanager.activities.main.MainActivity;
 import aditya.nayanda.shippingmanager.fragments.dialog.JobDetailsDialogFragment;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
@@ -164,7 +165,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setOnLongPressListener(googleMap, marker -> {
             Locator locator = (Locator) marker.getTag();
             if (!(locator instanceof Job)) return;
-            FragmentManager fragmentManager = MapsActivity.this.getSupportFragmentManager();
+            FragmentManager fragmentManager = MainActivity.MapsActivity.this.getSupportFragmentManager();
             JobDetailsDialogFragment dialogFragment = JobDetailsDialogFragment.newInstance(0.9f, (Job) locator);
             dialogFragment.show(fragmentManager, "details_dialog");
         });
@@ -247,12 +248,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 lastKnownLocation.getLongitude());
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                                 latLng, DEFAULT_ZOOM));
-                        Marker myMarker = MapsActivity.this.myMarker;
+                        Marker myMarker = MainActivity.MapsActivity.this.myMarker;
                         if (myMarker == null) {
                             myMarker = googleMap.addMarker(new MarkerOptions().position(latLng)
                                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                                     .title(getString(R.string.title_marker_my_location)));
-                            MapsActivity.this.myMarker = myMarker;
+                            MainActivity.MapsActivity.this.myMarker = myMarker;
                         } else {
                             myMarker.setPosition(latLng);
                         }
@@ -315,7 +316,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(MapsActivity.this);
+            progressDialog = new ProgressDialog(MainActivity.MapsActivity.this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.setTitle(R.string.title_calculating_route);
             progressDialog.setMessage(getString(R.string.message_calculating_route));
@@ -370,8 +371,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     lineOptions = new PolylineOptions();
                     lineOptions.addAll(result);
                     lineOptions.width(15);
-                    lineOptions.color(getColor(R.color.colorPrimary));
-                    MapsActivity.this.googleMap.addPolyline(lineOptions);
+                    lineOptions.color(getResources().getColor(R.color.colorPrimary));
+                    MainActivity.MapsActivity.this.googleMap.addPolyline(lineOptions);
                 } else showFailedGetRouteMessage();
             }
             if (result == null) showFailedGetRouteMessage();

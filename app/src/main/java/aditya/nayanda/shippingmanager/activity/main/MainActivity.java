@@ -78,8 +78,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        finish();
+        onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        int index = fragmentContainer.getCurrentItem();
+        if (index == 0) {
+            super.onBackPressed();
+            return;
+        }
+        selectBottomNavigationBy(0);
     }
 
     private int getIntentIndex() {
@@ -149,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     return UserMenuFragment.newInstance(new Bundle());
             }
-
         }
 
         @Override
