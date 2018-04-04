@@ -40,9 +40,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import aditya.nayanda.shippingmanager.R;
-import aditya.nayanda.shippingmanager.activity.helper.MapHelper;
 import aditya.nayanda.shippingmanager.activity.main.MainActivity;
 import aditya.nayanda.shippingmanager.activity.secondary.fragment.dialog.JobDetailsDialogFragment;
+import aditya.nayanda.shippingmanager.activity.secondary.helper.MapHelper;
 import aditya.nayanda.shippingmanager.model.Job;
 import aditya.nayanda.shippingmanager.model.ListOfJobs;
 import aditya.nayanda.shippingmanager.model.Locator;
